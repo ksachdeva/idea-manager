@@ -3,7 +3,11 @@
   "version": false,
   "dependencies": {},
   "ambientDependencies": {
+    "bcrypt": "registry:dt/bcrypt#0.0.0+20140929081955",
+    "bluebird": "registry:dt/bluebird#2.0.0+20160209044412",
     "bunyan": "registry:dt/bunyan#0.0.0+20150829122523",
+    "jsonwebtoken": "registry:dt/jsonwebtoken#5.7.0+20160227192404",
+    "mongoose": "registry:dt/mongoose#3.8.5+20160209123716",
     "restify": "registry:dt/restify#2.0.0+20160111135503"
   }
 }
