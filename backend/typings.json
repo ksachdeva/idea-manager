@@ -1,0 +1,9 @@
+{
+  "name": "idea-manager",
+  "version": false,
+  "dependencies": {},
+  "ambientDependencies": {
+    "bunyan": "registry:dt/bunyan#0.0.0+20150829122523",
+    "restify": "registry:dt/restify#2.0.0+20160111135503"
+  }
+}

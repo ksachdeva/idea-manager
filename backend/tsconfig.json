@@ -1,0 +1,23 @@
+{
+  "version": "0.1",
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "sourceMap": true,
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules",
+    "typings/browser",
+    "typings/browser.d.ts"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}

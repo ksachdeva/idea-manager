@@ -1,0 +1,16 @@
+{
+  "name": "idea-manager",
+  "version": "0.1.0",
+  "description": "The idea manager backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kapil Sachdeva <ksachdeva17@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "^1.7.1",
+    "mongoose": "^4.4.6",
+    "restify": "^4.0.4"
+  }
+}
