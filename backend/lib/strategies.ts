@@ -20,6 +20,11 @@ export const basicStrategy = new BasicStrategy(function(username, password, done
         return;
       }
 
+      if (result === null) {
+        done(null, false);
+        return;
+      }
+
       verifyPassword(password, result.salt, result.password).then((isCorrect) => {
         if (isCorrect) {
           done(null, username);

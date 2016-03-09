@@ -7,6 +7,7 @@ import getLogger from './lib/logger';
 import * as ideaController from './lib/controllers/idea';
 import * as userController from './lib/controllers/user';
 import * as strategies from './lib/strategies';
+import * as validator from './lib/validators';
 
 // establish connection with monogdb
 mongo.connect('mongodb://localhost:27017/test');
@@ -25,10 +26,12 @@ app.use(restify.jsonp());
 app.use(restify.gzipResponse());
 app.use(restify.bodyParser());
 
+app.use(validator.connectValidator({
+}));
+
 app.use(passport.initialize());
 
 // configure various passport strategies
-
 passport.use(strategies.jwtStrategy);
 passport.use(strategies.basicStrategy);
 
