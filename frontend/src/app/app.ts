@@ -3,10 +3,7 @@ import {Location, RouteConfig, RouterLink, Router} from 'angular2/router';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Home} from './home/home';
-import {Login} from './login/login';
-import {Signup} from './signup/signup';
-import {Forgot} from './forgot/forgot';
-
+import {Login, Signup, Forgot} from './user';
 import parse = require('parse');
 
 const Parse = parse.Parse;
