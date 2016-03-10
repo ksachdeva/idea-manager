@@ -33,8 +33,7 @@ export function main() {
   return browser.bootstrap(App, [
     ...ENV_PROVIDERS,
     ...HTTP_PROVIDERS,
-    ...ROUTER_PROVIDERS,
-    ngCore.provide(LocationStrategy, { useClass: HashLocationStrategy })
+    ...ROUTER_PROVIDERS
   ])
     .catch(err => console.error(err));
 }

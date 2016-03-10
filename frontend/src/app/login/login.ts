@@ -1,0 +1,38 @@
+import { Component, View } from 'angular2/core';
+import { Router, RouterLink } from 'angular2/router';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
+import { Http, Headers } from 'angular2/http';
+import parse = require('parse');
+
+const Parse = parse.Parse;
+const styles = require('./login.css');
+const template = require('./login.html');
+
+@Component({
+  selector: 'login'
+})
+@View({
+  directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
+  template: template,
+  styles: [styles]
+})
+export class Login {
+  constructor(public router: Router, public http: Http) {
+  }
+
+  login(event, username, password) {
+    event.preventDefault();
+    Parse.User.logIn(username, password)
+      .then((success) => this._onSuccessfulLogin(), (error) => console.error('error'));
+  }
+
+  signup(event) {
+    event.preventDefault();
+    this.router.parent.navigateByUrl('/signup');
+  }
+
+  private _onSuccessfulLogin() {
+    this.router.parent.navigateByUrl('/home');
+  }
+
+}
