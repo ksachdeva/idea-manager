@@ -52,7 +52,7 @@ app.post('/user/register', userController.create);
 app.post('/user/login', basicMiddleware, userController.login);
 
 // Idea Routes
-app.post('/idea', jwtMiddleware, ideaController.create);
+app.post('/idea/create', jwtMiddleware, ideaController.create);
 app.get('/idea/:id', jwtMiddleware, ideaController.get);
 
 const port = process.env.PORT || 8900;
