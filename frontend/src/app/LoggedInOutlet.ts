@@ -17,18 +17,18 @@ export class LoggedInRouterOutlet extends RouterOutlet {
     super(_elementRef, _loader, _parentRouter, nameAttr);
 
     this.parentRouter = _parentRouter;
-    this.publicRoutes = {
-      '/login': true,
-      '/signup': true
-    };
+    this.publicRoutes = ['login', 'signup', 'forgot'];
   }
 
-  activate(instruction: ComponentInstruction) {
-    var url = this.parentRouter.lastNavigationAttempt;
-    if (!this.publicRoutes[url] && (Parse.User.current() === null)) {
-      // todo: redirect to Login, may be there a better way?
-      this.parentRouter.navigateByUrl('/login');
+  activate(instruction) {
+    if (this._canActivate(instruction.urlPath)) {
+      return super.activate(instruction);
     }
-    return super.activate(instruction);
+
+    this.parentRouter.navigate(['Login']);
+  }
+
+  _canActivate(url) {
+    return this.publicRoutes.indexOf(url) !== -1 || (Parse.User.current() !== null);
   }
 }

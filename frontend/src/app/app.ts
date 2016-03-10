@@ -5,6 +5,8 @@ import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {Home} from './home/home';
 import {Login} from './login/login';
 import {Signup} from './signup/signup';
+import {Forgot} from './forgot/forgot';
+
 import parse = require('parse');
 
 const Parse = parse.Parse;
@@ -21,7 +23,8 @@ const template = require('./app.html');
   { path: '/', redirectTo: ['/Home'] },
   { path: '/home', component: Home, as: 'Home' },
   { path: '/login', component: Login, as: 'Login' },
-  { path: '/signup', component: Signup, as: 'Signup' }
+  { path: '/forgot', component: Forgot, as: 'Forgot' },
+  { path: '/signup', component: Signup, as: 'SignUp' }
 ])
 
 export class App {

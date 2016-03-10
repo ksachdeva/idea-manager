@@ -1,37 +1,31 @@
 import { Component, View } from 'angular2/core';
 import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Http } from 'angular2/http';
+import { Http, Headers } from 'angular2/http';
 import parse = require('parse');
 
 const Parse = parse.Parse;
-const template = require('./signup.html');
+const template = require('./forgot.html');
 
 @Component({
-  selector: 'signup'
+  selector: 'forgot'
 })
 @View({
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
   template: template
 })
-export class Signup {
+export class Forgot {
   constructor(public router: Router, public http: Http) {
-  }
-
-  signup(event, name, username, password, passwordAgain) {
-    event.preventDefault();
-    Parse.User.signUp(username, password, {
-      name: name
-    }).then((success) => this._onSuccessfullSignup());
   }
 
   login(event) {
     event.preventDefault();
-    this.router.parent.navigate(['Login']);
+    this.router.parent.navigateByUrl('/login');
   }
 
-  private _onSuccessfullSignup() {
-    this.router.parent.navigate(['Home']);
+  signup(event) {
+    event.preventDefault();
+    this.router.parent.navigateByUrl('/signup');
   }
 
 }

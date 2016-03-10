@@ -1,15 +1,35 @@
-<div class="login jumbotron center-block">
-  <h1>Login</h1>
-  <form role="form" (submit)="login($event, username.value, password.value)">
-  <div class="form-group">
-    <label for="username">Username</label>
-    <input type="text" #username class="form-control" id="username" placeholder="Username">
+<div class="form-signin">
+  <div class="text-center">
+    <img src="./../assets/img/logo.png" alt="Idea Logo">
   </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" #password class="form-control" id="password" placeholder="Password">
+  <hr>
+  <div class="tab-content">
+    <div id="login">
+      <form role="form" (submit)="login($event, username.value, password.value)">
+        <p class="text-muted text-center">
+          Enter your username and password
+        </p>
+        <input type="text" #username placeholder="Username" class="form-control top">
+        <input type="password" #password placeholder="Password" class="form-control bottom">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox">
+            Remember Me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+    </div>
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-    <a href="/signup">Click here to Signup</a>
-</form>
+  <hr>
+  <div class="text-center">
+    <ul class="list-inline">
+      <li>
+        <a class="text-muted" [routerLink]="['/Forgot']" data-toggle="tab">Forgot Password</a>
+      </li>
+      <li>
+        <a class="text-muted" [routerLink]="['/SignUp']" data-toggle="tab">Signup</a>
+      </li>
+    </ul>
+  </div>
 </div>

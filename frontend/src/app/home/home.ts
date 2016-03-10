@@ -5,7 +5,6 @@ import { Router } from 'angular2/router';
 import parse = require('parse');
 
 const Parse = parse.Parse;
-const styles = require('./home.css');
 const template = require('./home.html');
 
 @Component({
@@ -13,8 +12,7 @@ const template = require('./home.html');
 })
 @View({
   directives: [CORE_DIRECTIVES],
-  template: template,
-  styles: [styles]
+  template: template
 })
 export class Home {
 
@@ -23,7 +21,7 @@ export class Home {
 
   logout() {
     Parse.User.logOut();
-    this.router.parent.navigateByUrl('/login');
+    this.router.parent.navigate(['Login']);
   }
 
 }

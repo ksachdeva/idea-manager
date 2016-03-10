@@ -6,6 +6,8 @@ import * as browser from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 /*
  * App Environment Providers
  * providers that only live in certain environment
@@ -33,7 +35,8 @@ export function main() {
   return browser.bootstrap(App, [
     ...ENV_PROVIDERS,
     ...HTTP_PROVIDERS,
-    ...ROUTER_PROVIDERS
+    ...ROUTER_PROVIDERS,
+    ngCore.provide(LocationStrategy, { useClass: HashLocationStrategy })
   ])
     .catch(err => console.error(err));
 }
@@ -56,6 +59,9 @@ function bootstrapDomReady() {
   return document.addEventListener('DOMContentLoaded', main);
 }
 
+bootstrapDomReady();
+
+/*
 if ('development' === process.env.ENV) {
   // activate hot module reload
   if (process.env.HMR) {
@@ -70,4 +76,4 @@ if ('development' === process.env.ENV) {
   }
 } else {
   bootstrapDomReady();
-}
+}*/

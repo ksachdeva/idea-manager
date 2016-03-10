@@ -1,0 +1,27 @@
+<div class="form-signin">
+  <div class="text-center">
+    <img src="./../assets/img/logo.png" alt="Idea Logo">
+  </div>
+  <hr>
+  <div class="tab-content">
+    <div id="forgot">
+      <form action="index.html">
+        <p class="text-muted text-center">Enter your valid e-mail</p>
+        <input type="email" placeholder="mail@domain.com" class="form-control">
+        <br>
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Recover Password</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="text-center">
+    <ul class="list-inline">
+      <li>
+        <a class="text-muted" [routerLink]="['/Forgot']" data-toggle="tab">Forgot Password</a>
+      </li>
+      <li>
+        <a class="text-muted" [routerLink]="['/SignUp']" data-toggle="tab">Signup</a>
+      </li>
+    </ul>
+  </div>
+</div>
