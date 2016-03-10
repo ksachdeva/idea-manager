@@ -22,6 +22,7 @@ describe('Idea Controller Web API testing', function() {
   const INVALID_TEST_USER_PWD = 'incorrect';
 
   const API_ENDPOINT_CREATE = 'idea/create';
+  const API_ENDPOINT_LIST = 'idea/list';
 
   var jwt_token = null;
 
@@ -60,6 +61,39 @@ describe('Idea Controller Web API testing', function() {
           title: 'This is first idea'
         })
         .expect(HTTPStatus.CREATED, done);
+    });
+
+  });
+
+  describe('API : list', function() {
+
+    it('should fail when user supplies invalid credentials', function(done) {
+      api.get(API_ENDPOINT_LIST)
+        .set('Authorization', 'JWT ' + 'iamabadtoken')
+        .expect(HTTPStatus.UNAUTHORIZED, done);
+    });
+
+    it('should fail when user supplies no credentials', function(done) {
+      api.get(API_ENDPOINT_LIST)
+        .expect(HTTPStatus.UNAUTHORIZED, done);
+    });
+
+    it.only('should work when required fields are specified and logged in', function(done) {
+      api.get(API_ENDPOINT_LIST)
+        .set('Authorization', 'JWT ' + jwt_token)
+        .expect(HTTPStatus.OK)
+        .end(
+        function(err, res) {
+          if (err) {
+            return done(err);
+          }
+
+          var body = res.body;
+
+          console.log(body);
+
+          done();
+        });
     });
 
   });

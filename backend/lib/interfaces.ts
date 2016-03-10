@@ -1,6 +1,7 @@
 'use strict';
 
 import * as restify from 'restify';
+import * as mongo from 'mongoose';
 
 interface Dictionary<T> { [key: string]: T; }
 
@@ -125,4 +126,15 @@ export interface Validator {
   isArray(): Validator;
   hasElements(): Validator;
   doesNotStartsWithInternalKV(): Validator;
+}
+
+export interface IIdea {
+  title: string;
+  creator: string;
+  is_public: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+}
+
+export interface IIdeaModel extends IIdea, mongo.Document {
 }

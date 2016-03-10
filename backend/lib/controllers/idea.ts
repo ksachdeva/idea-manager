@@ -2,9 +2,10 @@
 
 import * as restify from 'restify';
 import * as HTTPStatus from 'http-status';
+import * as mongo from 'mongoose';
 
 import {Idea} from '../models/idea';
-import {RequestEx} from '../interfaces';
+import {RequestEx, IIdeaModel} from '../interfaces';
 
 export function create(req: RequestEx, res: restify.Response) {
   const title = req.params.title;
@@ -29,6 +30,22 @@ export function create(req: RequestEx, res: restify.Response) {
       }
       res.send(HTTPStatus.CREATED);
     });
+}
+
+export function list(req: RequestEx, res: restify.Response) {
+
+  console.log('here');
+  console.log(Idea['paginate']);
+
+  Idea['paginate']({}, function(err, result) {
+    if (err) {
+      console.log('in error');
+      console.log(err);
+      res.send(HTTPStatus.BAD_REQUEST, err);
+      return;
+    }
+    res.json(result);
+  });
 }
 
 export function get(req: RequestEx, res: restify.Response) {

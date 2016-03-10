@@ -1,6 +1,9 @@
 'use strict';
 
 import * as mongo from 'mongoose';
+const paginate = require('mongoose-paginate');
+
+import {IIdeaModel} from '../interfaces';
 
 export const IdeaSchema = new mongo.Schema({
   title: { type: String, required: true },
@@ -9,6 +12,8 @@ export const IdeaSchema = new mongo.Schema({
   created_at: Date,
   updated_at: Date
 });
+
+IdeaSchema.plugin(paginate);
 
 IdeaSchema.pre('save', function(next) {
   const idea = this;
@@ -27,4 +32,4 @@ IdeaSchema.pre('save', function(next) {
 
 });
 
-export const Idea = mongo.model('Idea', IdeaSchema);
+export const Idea = mongo.model<IIdeaModel>('Idea', IdeaSchema);
