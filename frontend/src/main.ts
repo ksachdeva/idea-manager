@@ -7,6 +7,7 @@ import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2
 import {HTTP_PROVIDERS} from 'angular2/http';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootcards/dist/css/bootcards-desktop.css';
 
 /*
  * App Environment Providers

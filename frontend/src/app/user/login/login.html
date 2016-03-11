@@ -1,35 +1,38 @@
-<div class="form-signin">
-  <div class="text-center">
-    <img src="./../assets/img/logo.png" alt="Idea Logo">
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Sign In</h3>
   </div>
-  <hr>
-  <div class="tab-content">
-    <div id="login">
-      <form role="form" (submit)="login($event, username.value, password.value)">
-        <p class="text-muted text-center">
-          Enter your username and password
-        </p>
-        <input type="text" #username placeholder="Username" class="form-control top">
-        <input type="password" #password placeholder="Password" class="form-control bottom">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox">
-            Remember Me
-          </label>
+  <div class="modal-body">
+    <form class="form-horizontal" role="form" (submit)="login($event, username.value, password.value)">
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Email</label>
+        <div class="col-xs-9">
+          <input type="text" #username placeholder="you@email.com" class="form-control">
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-    </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Password</label>
+        <div class="col-xs-9">
+          <input type="password" #password placeholder="Password" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4 text-center">
+          <button class="btn btn-primary" type="submit">Sign In</button>
+        </div>
+      </div>
+    </form>
   </div>
-  <hr>
-  <div class="text-center">
-    <ul class="list-inline">
-      <li>
-        <a class="text-muted" [routerLink]="['/Forgot']" data-toggle="tab">Forgot Password</a>
-      </li>
-      <li>
-        <a class="text-muted" [routerLink]="['/SignUp']" data-toggle="tab">Signup</a>
-      </li>
-    </ul>
+  <div class="panel-footer">
+    <div class="col-md-4 text-center">
+      <ul class="list-inline">
+        <li>
+          <a [routerLink]="['/Forgot']">Forgot Password</a>
+        </li>
+        <li>
+          <a [routerLink]="['/SignUp']">Signup</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

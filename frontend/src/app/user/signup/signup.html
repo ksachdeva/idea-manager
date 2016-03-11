@@ -1,28 +1,50 @@
-<div class="form-signin">
-  <div class="text-center">
-    <img src="./../assets/img/logo.png" alt="Idea Logo">
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Sign Up</h3>
   </div>
-  <hr>
-  <div class="tab-content">
-    <div id="signup">
-      <form role="form" (submit)="signup($event, name.value, username.value, password.value, passwordAgain.value)">
-        <input type="text" #name placeholder="Your Name" class="form-control top">
-        <input type="email" #username placeholder="Your Email" class="form-control middle">
-        <input type="password" #password placeholder="Password" class="form-control middle">
-        <input type="password" #passwordAgain placeholder="Confirm Password" class="form-control bottom">
-        <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
-      </form>
+  <div class="modal-body">
+    <form role="form" (submit)="signup($event, name.value, username.value, password.value, passwordAgain.value)">
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Name</label>
+        <div class="col-xs-9">
+          <input type="text" #name placeholder="John Doe" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Email</label>
+        <div class="col-xs-9">
+          <input type="text" #username placeholder="you@email.com" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Password</label>
+        <div class="col-xs-9">
+          <input type="password" #password placeholder="Password" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Confirm Password</label>
+        <div class="col-xs-9">
+          <input type="password" #passwordAgain placeholder="Password" class="form-control">
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <div>
+          <button class="btn btn-primary" type="submit">Register</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="panel-footer">
+    <div class="col-md-4 text-center">
+      <ul class="list-inline">
+        <li>
+          <a [routerLink]="['/Forgot']">Forgot Password</a>
+        </li>
+        <li>
+          <a [routerLink]="['/Login']">Login</a>
+        </li>
+      </ul>
     </div>
-  </div>
-  <hr>
-  <div class="text-center">
-    <ul class="list-inline">
-      <li>
-        <a class="text-muted" [routerLink]="['/Login']" data-toggle="tab">Login</a>
-      </li>
-      <li>
-        <a class="text-muted" [routerLink]="['/Forgot']" data-toggle="tab">Forgot Password</a>
-      </li>
-    </ul>
   </div>
 </div>

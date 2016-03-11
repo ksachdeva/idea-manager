@@ -1,0 +1,124 @@
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Search for...">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button">Go!</button>
+  </span>
+</div>
+
+<nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">1</a>
+    </li>
+    <li>
+      <a href="#">2</a>
+    </li>
+    <li>
+      <a href="#">3</a>
+    </li>
+    <li>
+      <a href="#">4</a>
+    </li>
+    <li>
+      <a href="#">5</a>
+    </li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="panel panel-default" *ngFor="#idea of ideas">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">{{idea.title}}</h3>
+    <a class="btn btn-primary pull-right" href="#">
+      <i class="fa fa-pencil"></i>
+      Edit
+    </a>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item">
+      <p class="list-group-item-text">Author</p>
+      <h4 class="list-group-item-heading">{{idea.author.get('name')}}</h4>
+    </div>
+    <div class="list-group-item">
+      <p class="list-group-item-text">Title</p>
+      <h4 class="list-group-item-heading">{{idea.title}}</h4>
+    </div>
+    <div class="list-group-item">
+      <p class="list-group-item-text">
+        {{idea.summary}}
+      </p>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <small class="pull-left">5 Comments</small>
+    <a class="pull-right" href="#">Add Comment</a>
+  </div>
+</div>
+
+<div class="panel panel-default" *ngFor="#idea of ideas">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">{{idea.title}}</h3>
+    <a class="btn btn-primary pull-right" href="#">
+      <i class="fa fa-pencil"></i>
+      Edit
+    </a>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item">
+      <p class="list-group-item-text">Author</p>
+      <h4 class="list-group-item-heading">{{idea.author.get('name')}}</h4>
+    </div>
+    <div class="list-group-item">
+      <p class="list-group-item-text">Title</p>
+      <h4 class="list-group-item-heading">{{idea.title}}</h4>
+    </div>
+    <div class="list-group-item">
+      <p class="list-group-item-text">
+        {{idea.summary}}
+      </p>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <small class="pull-left">5 Comments</small>
+    <a class="pull-right" href="#">Add Comment</a>
+  </div>
+</div>
+
+<nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">1</a>
+    </li>
+    <li>
+      <a href="#">2</a>
+    </li>
+    <li>
+      <a href="#">3</a>
+    </li>
+    <li>
+      <a href="#">4</a>
+    </li>
+    <li>
+      <a href="#">5</a>
+    </li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

@@ -1,27 +1,32 @@
-<div class="form-signin">
-  <div class="text-center">
-    <img src="./../assets/img/logo.png" alt="Idea Logo">
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Reset Password</h3>
   </div>
-  <hr>
-  <div class="tab-content">
-    <div id="forgot">
-      <form action="index.html">
-        <p class="text-muted text-center">Enter your valid e-mail</p>
-        <input type="email" placeholder="mail@domain.com" class="form-control">
-        <br>
-        <button class="btn btn-lg btn-danger btn-block" type="submit">Recover Password</button>
-      </form>
+  <div class="modal-body">
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Your Email</label>
+        <div class="col-xs-9">
+          <input type="text" #username placeholder="you@email.com" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-4 text-center">
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="panel-footer">
+    <div class="col-md-4 text-center">
+      <ul class="list-inline">
+        <li>
+          <a [routerLink]="['/Login']">Login</a>
+        </li>
+        <li>
+          <a [routerLink]="['/SignUp']">Signup</a>
+        </li>
+      </ul>
     </div>
-  </div>
-  <hr>
-  <div class="text-center">
-    <ul class="list-inline">
-      <li>
-        <a class="text-muted" [routerLink]="['/Forgot']" data-toggle="tab">Forgot Password</a>
-      </li>
-      <li>
-        <a class="text-muted" [routerLink]="['/SignUp']" data-toggle="tab">Signup</a>
-      </li>
-    </ul>
   </div>
 </div>
