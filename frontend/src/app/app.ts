@@ -30,4 +30,16 @@ export class App {
     Parse.initialize('myAppId', 'empty');
     Parse.serverURL = 'http://localhost:1337/parse';
   }
+
+  isUserLoggedOut() {
+    return Parse.User.current() === null;
+  }
+
+  logout() {
+    Parse.User.logOut().then(() => this.router.navigate(['Login']));
+  }
+
+  isActive(instruction: any[]): boolean {
+    return this.router.isRouteActive(this.router.generate(instruction));
+  }
 }

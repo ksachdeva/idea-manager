@@ -19,16 +19,16 @@
 
     <a class="navbar-brand no-break-out" title="Idea Manager" href="/">Idea Manager</a>
 
-    <div class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active">
+    <div class="navbar-collapse collapse" >
+      <ul class="nav navbar-nav" [hidden]="isUserLoggedOut()">
+        <li>
           <a [routerLink]="['/IdeaList']" data-pjax="#main" data-title="Customers">
             <i class="fa fa-dashboard"></i>
             Home
           </a>
         </li>
         <li>
-           <a [routerLink]="['/Login']" data-pjax="#main" data-title="Settings">
+           <a (click)="logout()" data-pjax="#main" data-title="Settings">
              <i class="fa fa-gears"></i>
              Logout
            </a>

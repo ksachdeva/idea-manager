@@ -25,7 +25,7 @@ export class Login {
   }
 
   private _onSuccessfulLogin() {
-    this.router.parent.navigate(['Home']);
+    this.router.parent.navigate(['IdeaList']);
   }
 
 }
