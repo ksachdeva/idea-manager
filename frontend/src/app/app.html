@@ -17,9 +17,12 @@
       <i class="fa fa-lg fa-bars"></i><span>Menu</span>
     </button>
 
-    <a class="navbar-brand no-break-out" title="Idea Manager" href="/">Idea Manager</a>
+    <a class="navbar-brand no-break-out" title="Idea Manager" href="/">
+      <i class="fa fa-lightbulb-o"></i> <span>Idea Manager</span>
+    </a>
 
     <div class="navbar-collapse collapse" >
+      <!--
       <ul class="nav navbar-nav" [hidden]="isUserLoggedOut()">
         <li>
           <a [routerLink]="['/IdeaList']" data-pjax="#main" data-title="Customers">
@@ -27,6 +30,9 @@
             Home
           </a>
         </li>
+      </ul>
+    -->
+      <ul class="nav navbar-nav navbar-right" [hidden]="isUserLoggedOut()">
         <li>
            <a (click)="logout()" data-pjax="#main" data-title="Settings">
              <i class="fa fa-gears"></i>
