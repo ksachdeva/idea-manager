@@ -6,6 +6,8 @@ import * as browser from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
+import 'font-awesome/css/font-awesome.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootcards/dist/css/bootcards-desktop.css';
 
