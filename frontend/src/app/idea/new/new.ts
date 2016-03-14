@@ -18,13 +18,15 @@ const template = require('./new.html');
 export class NewIdea {
 
   idea: Idea;
+  isBusy: boolean;
 
   constructor(public router: Router) {
     this.idea = new Idea();
+    this.isBusy = false;
   }
 
   save() {
     this.idea.author = Parse.User.current();
-    this.idea.save(this.idea.attrs).then((success) => console.log('done'));
+    this.idea.save(this.idea.attrs).then((success) => this.router.parent.navigate(['IdeaList']));
   }
 }

@@ -39,22 +39,22 @@
 </nav>
 -->
 
-<div class="panel panel-default">
-  <div class="panel-body">
+<div class="panel panel-info">
+  <div class="panel-heading clearfix">
     <div class="pull-left vcenter">
       Welcome Kapil Sachdeva
     </div>
-    <a class="btn btn-primary pull-right" [routerLink]="['/NewIdea']" >
+    <a class="btn btn-success pull-right" [routerLink]="['/NewIdea']" >
       <i class="fa fa-plus"></i>
       New Idea
     </a>
   </div>
 </div>
 
-<div class="panel panel-default" *ngFor="#idea of ideas">
+<div class="panel panel-primary" *ngFor="#idea of ideas">
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">{{idea.title}}</h3>
-    <a class="btn btn-primary pull-right" href="#">
+    <a class="btn btn-success pull-right" href="#">
       <i class="fa fa-pencil"></i>
       Edit
     </a>
