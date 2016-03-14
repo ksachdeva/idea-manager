@@ -8,15 +8,15 @@ YesNoModalContent, YesNoModal} from 'angular2-modal';
 
 import {Idea} from './../models';
 import {INewCommentData, NewCommentModal} from '../comment/new';
+import {CommentCountPipe} from '../comment/count-pipe';
 
 const Parse = parse.Parse;
 const template = require('./list.html');
 
 @Component({
   selector: 'idea-list',
-  providers: [Modal]
-})
-@View({
+  providers: [Modal],
+  pipes: [CommentCountPipe],
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
   template: template
 })
@@ -32,7 +32,6 @@ export class IdeaList {
     const query = new Parse.Query(Idea);
     query.find().then((results: any) => {
       this.ideas = results.map((r) => new Idea(r));
-      console.log(this.ideas);
     });
   }
 
