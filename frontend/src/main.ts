@@ -12,6 +12,10 @@ import 'bootcards/dist/css/bootcards-desktop.css';
 
 import './assets/app.css';
 
+import 'medium-editor/dist/css/medium-editor.css';
+import 'medium-editor/dist/css/themes/bootstrap.css';
+
+
 /*
  * App Environment Providers
  * providers that only live in certain environment

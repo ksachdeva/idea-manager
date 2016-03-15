@@ -4,3 +4,9 @@
   align-items:center;
   justify-content:center;
 }
+
+.rich-editor {
+  resize: vertical;
+  overflow: auto;
+  min-height:120px;
+}

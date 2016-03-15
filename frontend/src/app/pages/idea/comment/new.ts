@@ -1,8 +1,9 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, ViewChild} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {Modal, ModalDialogInstance,
 ICustomModal, ICustomModalComponent} from 'angular2-modal';
 import {Idea, Comment} from './../../../models/models';
+import {RichTextComponent} from '../../../components/richtext';
 
 import parse = require('parse');
 const Parse = parse.Parse;
@@ -14,7 +15,7 @@ export interface INewCommentData {
 
 @Component({
   selector: 'modal-content',
-  directives: [CORE_DIRECTIVES],
+  directives: [CORE_DIRECTIVES, RichTextComponent],
   template: `
       <div class="modal-header" style="display:none;">
         <h3 class="modal-title"></h3>
@@ -26,12 +27,8 @@ export interface INewCommentData {
           </div>
 
           <div class="panel-body">
-              <div class="form-group text-center">
-                <div>
-                  <textarea [(ngModel)]="comment" placeholder="Please type your comment .."
-                    style="height:100px;" type="textarea"
-                    class="form-control" id="summary"></textarea>
-                </div>
+              <div class="form-group">
+                <div rich-text class="form-control rich-editor"></div>
               </div>
               <div class="form-group text-center">
                 <div>
@@ -50,7 +47,8 @@ export interface INewCommentData {
 export class NewCommentModal implements ICustomModalComponent {
   dialog: ModalDialogInstance;
   context: INewCommentData;
-  comment: string;
+
+  @ViewChild(RichTextComponent) richText: RichTextComponent;
 
   constructor(
     dialog: ModalDialogInstance,
@@ -65,7 +63,7 @@ export class NewCommentModal implements ICustomModalComponent {
 
   saveComment() {
     const commentObj = new Comment();
-    commentObj.value = this.comment;
+    commentObj.value = this.richText.value;
     commentObj.author = Parse.User.current();
     commentObj.idea = new Idea();
     commentObj.idea.id = this.context.ideaObjectId;
