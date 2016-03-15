@@ -14,7 +14,7 @@ const Parse = parse.Parse;
   <div class="panel panel-primary" >
     <div class="panel-heading clearfix">
       <h3 class="panel-title pull-left">{{idea.title}}</h3>
-      <a class="btn btn-success pull-right" href="#">
+      <a [hidden]="!canEdit" class="btn btn-success pull-right" href="#">
         <i class="fa fa-pencil"></i>
         Edit
       </a>
@@ -62,6 +62,7 @@ const Parse = parse.Parse;
 export class IdeaComponent {
 
   collapse: boolean;
+  canEdit: boolean;
   comments: Comment[];
 
   @Input() idea: Idea;
@@ -69,6 +70,7 @@ export class IdeaComponent {
 
   constructor() {
     this.collapse = true;
+    this.canEdit = false;
   }
 
   toggleComments() {
@@ -80,7 +82,8 @@ export class IdeaComponent {
   }
 
   ngOnInit() {
-    // let's get the comments for this idea
+    this.canEdit = Parse.User.current().id === this.idea.author.id;
+    console.log(this.canEdit);
     const query = new Parse.Query(Comment);
     query.equalTo('idea', this.idea);
     query.find().then((results: any) => {
