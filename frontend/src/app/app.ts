@@ -3,7 +3,7 @@ import {Location, RouteConfig, RouterLink, Router} from 'angular2/router';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {LoginPage, SignupPage, ForgotPage} from './pages';
-import {NewIdeaPage, IdeaListPage} from './pages';
+import {NewIdeaPage, EditIdeaPage, IdeaListPage} from './pages';
 import parse = require('parse');
 
 const Parse = parse.Parse;
@@ -22,6 +22,7 @@ const template = require('./app.html');
   { path: '/forgot', component: ForgotPage, as: 'Forgot' },
   { path: '/signup', component: SignupPage, as: 'SignUp' },
   { path: '/idea/new', component: NewIdeaPage, as: 'NewIdea' },
+  { path: '/idea/update/:id', component: EditIdeaPage, as: 'EditIdea' },
   { path: '/idea', component: IdeaListPage, as: 'IdeaList' },
 ])
 

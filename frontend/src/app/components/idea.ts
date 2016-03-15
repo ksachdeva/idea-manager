@@ -1,5 +1,6 @@
 import {Component, Input, Output, ElementRef, EventEmitter} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
+import { Router, RouterLink, RouteParams } from 'angular2/router';
 import parse = require('parse');
 import {Idea, Comment} from './../models/models';
 import {CommentCountPipe} from './../pipes/count-pipe';
@@ -14,7 +15,7 @@ const Parse = parse.Parse;
   <div class="panel panel-primary" >
     <div class="panel-heading clearfix">
       <h3 class="panel-title pull-left">{{idea.title}}</h3>
-      <a [hidden]="!canEdit" class="btn btn-success pull-right" href="#">
+      <a (click)="editIdea()" [hidden]="!canEdit" class="btn btn-success pull-right">
         <i class="fa fa-pencil"></i>
         Edit
       </a>
@@ -68,7 +69,7 @@ export class IdeaComponent {
   @Input() idea: Idea;
   @Output() onAddComment = new EventEmitter();
 
-  constructor() {
+  constructor(private router: Router) {
     this.collapse = true;
     this.canEdit = false;
   }
@@ -79,6 +80,12 @@ export class IdeaComponent {
 
   newComment() {
     this.onAddComment.emit({});
+  }
+
+  editIdea() {
+    this.router.parent.navigate(['EditIdea', {
+      id: this.idea.id
+    }]);
   }
 
   ngOnInit() {
