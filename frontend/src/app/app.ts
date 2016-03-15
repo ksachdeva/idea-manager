@@ -2,8 +2,8 @@ import {View, Component} from 'angular2/core';
 import {Location, RouteConfig, RouterLink, Router} from 'angular2/router';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
-import {Login, Signup, Forgot} from './user';
-import {NewIdea, IdeaList} from './idea';
+import {LoginPage, SignupPage, ForgotPage} from './pages';
+import {NewIdeaPage, IdeaListPage} from './pages';
 import parse = require('parse');
 
 const Parse = parse.Parse;
@@ -18,11 +18,11 @@ const template = require('./app.html');
 })
 @RouteConfig([
   { path: '/', redirectTo: ['/IdeaList'] },
-  { path: '/login', component: Login, as: 'Login' },
-  { path: '/forgot', component: Forgot, as: 'Forgot' },
-  { path: '/signup', component: Signup, as: 'SignUp' },
-  { path: '/idea/new', component: NewIdea, as: 'NewIdea' },
-  { path: '/idea', component: IdeaList, as: 'IdeaList' },
+  { path: '/login', component: LoginPage, as: 'Login' },
+  { path: '/forgot', component: ForgotPage, as: 'Forgot' },
+  { path: '/signup', component: SignupPage, as: 'SignUp' },
+  { path: '/idea/new', component: NewIdeaPage, as: 'NewIdea' },
+  { path: '/idea', component: IdeaListPage, as: 'IdeaList' },
 ])
 
 export class App {

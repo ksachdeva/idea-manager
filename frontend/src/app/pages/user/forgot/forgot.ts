@@ -14,7 +14,7 @@ const template = require('./forgot.html');
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
   template: template
 })
-export class Forgot {
+export class ForgotPage {
   constructor(public router: Router, public http: Http) {
   }
 

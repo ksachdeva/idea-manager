@@ -15,7 +15,7 @@ const template = require('./new.html');
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
   template: template
 })
-export class NewIdea {
+export class NewIdeaPage {
 
   idea: Idea;
   isBusy: boolean;

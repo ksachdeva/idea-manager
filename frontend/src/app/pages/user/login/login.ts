@@ -14,7 +14,7 @@ const template = require('./login.html');
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
   template: template
 })
-export class Login {
+export class LoginPage {
   constructor(public router: Router, public http: Http) {
   }
 

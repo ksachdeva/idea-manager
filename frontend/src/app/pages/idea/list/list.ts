@@ -20,7 +20,7 @@ const template = require('./list.html');
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
   template: template
 })
-export class IdeaList {
+export class IdeaListPage {
 
   ideas: Idea[];
 
