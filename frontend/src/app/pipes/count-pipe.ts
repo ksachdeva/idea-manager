@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from 'angular2/core';
 import parse = require('parse');
-import {Idea, Comment} from './../models';
+import {Idea, Comment} from './../models/models';
 
 const Parse = parse.Parse;
 

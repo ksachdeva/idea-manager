@@ -2,7 +2,7 @@ import {Component, Input} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import {Modal, ModalDialogInstance,
 ICustomModal, ICustomModalComponent} from 'angular2-modal';
-import {Idea, Comment} from './../models';
+import {Idea, Comment} from './../../../models/models';
 
 import parse = require('parse');
 const Parse = parse.Parse;

@@ -3,7 +3,7 @@ import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import parse = require('parse');
 
-import {Idea} from './../models';
+import {Idea} from './../../../models/models';
 
 const Parse = parse.Parse;
 const template = require('./new.html');

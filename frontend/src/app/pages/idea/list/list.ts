@@ -6,9 +6,9 @@ import parse = require('parse');
 import {ModalDialogInstance, ModalConfig, Modal, ICustomModal,
 YesNoModalContent, YesNoModal} from 'angular2-modal';
 
-import {Idea} from './../models';
+import {Idea, Comment} from './../../../models/models';
 import {INewCommentData, NewCommentModal} from '../comment/new';
-import {CommentCountPipe} from '../comment/count-pipe';
+import {CommentCountPipe} from '../../../pipes/count-pipe';
 
 const Parse = parse.Parse;
 const template = require('./list.html');
