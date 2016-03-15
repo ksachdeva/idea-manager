@@ -13,7 +13,7 @@ export class CommentCountPipe implements PipeTransform {
   private fetchPromise: Promise<number>;
 
   transform(value: string, args: string[]): any {
-    console.log(value);
+    // console.log(value);
     if (!this.fetchPromise) {
       this.fetchPromise = new Promise<number>((resolve, reject) => {
         const query = new Parse.Query(Comment);
