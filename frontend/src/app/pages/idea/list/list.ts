@@ -24,9 +24,11 @@ const template = require('./list.html');
 export class IdeaListPage {
 
   ideas: Idea[];
+  username: string;
 
   constructor(public router: Router, private modal: Modal) {
     this.ideas = [];
+    this.username = Parse.User.current().get('name');
   }
 
   ngOnInit() {
