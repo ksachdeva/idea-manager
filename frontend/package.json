@@ -36,7 +36,6 @@
     "docs": "typedoc --options typedoc.json --exclude **/*.spec.ts ./src/",
     "start": "npm run server",
     "typings-install": "typings install",
-    "postinstall": "npm run typings-install",
     "preversion": "npm test",
     "version": "npm run build",
     "postversion": "git push && git push --tags"
@@ -50,6 +49,7 @@
     "es6-shim": "^0.33.3",
     "es7-reflect-metadata": "^1.6.0",
     "font-awesome": "^4.5.0",
+    "jquery": "^2.2.1",
     "medium-editor": "^5.14.4",
     "parse": "^1.7.1",
     "rxjs": "5.0.0-beta.2",
