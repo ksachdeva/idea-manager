@@ -31,7 +31,7 @@ module.exports = {
   // static data for index.html
   metadata: metadata,
 
-  devtool: 'source-map',
+  // devtool: 'source-map',
   debug: false,
 
   entry: {
@@ -52,35 +52,28 @@ module.exports = {
   },
 
   module: {
-    preLoaders: [{
-      test: /\.ts$/,
-      loader: 'tslint-loader',
-      exclude: [
-        helpers.root('node_modules')
-      ]
-    }, {
-      test: /\.js$/,
-      loader: 'source-map-loader',
-      exclude: [
-        helpers.root('node_modules/rxjs')
-      ]
-    }],
+    preLoaders: [
+      /*{
+            test: /\.ts$/,
+            loader: 'tslint-loader',
+            exclude: [
+              helpers.root('node_modules')
+            ]
+          },*/
+      {
+        test: /\.js$/,
+        loader: 'source-map-loader',
+        exclude: [
+          helpers.root('node_modules/rxjs')
+        ]
+      }
+    ],
     loaders: [
-      // Support Angular 2 async routes via .async.ts
       // Support for .ts files.
       {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
-        query: {
-          // remove TypeScript helpers to be injected below by DefinePlugin
-          'compilerOptions': {
-            'removeComments': true
-          }
-        },
-        exclude: [
-          /\.(spec|e2e)\.ts$/,
-          helpers.root('node_modules')
-        ]
+        exclude: [/\.(spec|e2e)\.ts$/, helpers.root('node_modules')]
       },
 
       // Support for *.json files.
@@ -91,19 +84,56 @@ module.exports = {
       },
 
       // Support for CSS as raw text
-      {
+      /*{
         test: /\.css$/,
         loader: 'raw-loader',
         exclude: [helpers.root('node_modules')]
-      },
+      },*/
 
       // support for .html as raw text
       {
         test: /\.html$/,
         loader: 'raw-loader',
-        exclude: [
-          helpers.root('src/index.html')
-        ]
+        exclude: [helpers.root('src/index.html'), helpers.root('node_modules')]
+      },
+
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader?limit=8192'
+      },
+
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
+      }, {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "file"
+      }, {
+        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=application/font-woff"
+      }, {
+        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=application/font-woff"
+      }, {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=application/octet-stream"
+      }, {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=image/svg+xml"
+      },
+
+      {
+        test: /\.eot(\?-\w+)?$/,
+        loader: "file"
+      }, {
+        test: /\.woff(\?-\w+)?$/,
+        loader: "url?limit=10000&mimetype=application/font-woff"
+      }, {
+        test: /\.ttf(\?-\w+)?$/,
+        loader: "url?limit=10000&mimetype=application/octet-stream"
+      }, {
+        test: /\.svg(\?-\w+)?$/,
+        loader: "url?limit=10000&mimetype=image/svg+xml"
       }
 
     ],
@@ -144,10 +174,10 @@ module.exports = {
       // to debug prod builds uncomment //debug lines and comment //prod lines
 
       // beautify: true,//debug
-      // mangle: false,//debug
-      // dead_code: false,//debug
-      // unused: false,//debug
-      // deadCode: false,//debug
+      mangle: false, //debug
+      dead_code: false, //debug
+      unused: false, //debug
+      deadCode: false, //debug
       // compress : { screw_ie8 : true, keep_fnames: true, drop_debugger: false, dead_code: false, unused: false, }, // debug
       // comments: true,//debug
 
@@ -155,37 +185,37 @@ module.exports = {
       // disable mangling because of a bug in angular2 beta.1, beta.2 and beta.3
       // TODO(mastertinner): enable mangling as soon as angular2 beta.4 is out
       // mangle: { screw_ie8 : true },//prod
-      mangle: {
-        screw_ie8: true,
-        except: [
-            'RouterActive',
-            'RouterLink',
-            'RouterOutlet',
-            'NgFor',
-            'NgIf',
-            'NgClass',
-            'NgSwitch',
-            'NgStyle',
-            'NgSwitchDefault',
-            'NgModel',
-            'NgControl',
-            'NgFormControl',
-            'NgForm',
-            'AsyncPipe',
-            'DatePipe',
-            'JsonPipe',
-            'NumberPipe',
-            'DecimalPipe',
-            'PercentPipe',
-            'CurrencyPipe',
-            'LowerCasePipe',
-            'UpperCasePipe',
-            'SlicePipe',
-            'ReplacePipe',
-            'I18nPluralPipe',
-            'I18nSelectPipe'
-          ] // needed for uglify RouterLink problem
-      }, // prod
+      /*  mangle: {
+          screw_ie8: true,
+          except: [
+              'RouterActive',
+              'RouterLink',
+              'RouterOutlet',
+              'NgFor',
+              'NgIf',
+              'NgClass',
+              'NgSwitch',
+              'NgStyle',
+              'NgSwitchDefault',
+              'NgModel',
+              'NgControl',
+              'NgFormControl',
+              'NgForm',
+              'AsyncPipe',
+              'DatePipe',
+              'JsonPipe',
+              'NumberPipe',
+              'DecimalPipe',
+              'PercentPipe',
+              'CurrencyPipe',
+              'LowerCasePipe',
+              'UpperCasePipe',
+              'SlicePipe',
+              'ReplacePipe',
+              'I18nPluralPipe',
+              'I18nSelectPipe'
+            ] // needed for uglify RouterLink problem
+        }, // prod */
       compress: {
         screw_ie8: true
       }, //prod
@@ -201,8 +231,8 @@ module.exports = {
   ],
   // Other module loader config
   tslint: {
-    emitErrors: true,
-    failOnHint: true,
+    emitErrors: false,
+    failOnHint: false,
     resourcePath: 'src',
   },
 
