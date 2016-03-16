@@ -88,8 +88,6 @@ export class IdeaComponent {
   }
 
   addedCommentHandler(ideaId: string) {
-    console.log('idea -', ideaId);
-    console.log(this.idea.id);
     if (this.idea.id === ideaId) {
       // we need to handle it
       this.refreshComments();

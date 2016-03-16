@@ -6,31 +6,47 @@
     <form class="form-horizontal" role="form" (submit)="signup($event, name.value, username.value, password.value, passwordAgain.value)">
       <div class="form-group">
         <label class="col-xs-3 control-label">Name</label>
-        <div class="col-xs-9">
-          <input type="text" #name placeholder="John Doe" class="form-control">
+        <div class="col-xs-9 has-feedback">
+          <input #fname="ngForm" required ngControl="fname" type="text" #name placeholder="John Doe" class="form-control">
+          <div [hidden]="fname.valid || fname.pristine" class="help-block alert alert-danger">
+            Name is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-3 control-label">Email</label>
-        <div class="col-xs-9">
-          <input type="text" #username placeholder="you@email.com" class="form-control">
+        <div class="col-xs-9 has-feedback">
+          <input #email="ngForm" required ngControl="email" type="text" #username placeholder="you@email.com" class="form-control">
+          <div [hidden]="email.valid || email.pristine" class="help-block alert alert-danger">
+            Email is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-3 control-label">Password</label>
-        <div class="col-xs-9">
-          <input type="password" #password placeholder="Password" class="form-control">
+        <div class="col-xs-9 has-feedback">
+          <input #pass="ngForm" required ngControl="pass" type="password" #password placeholder="Password" class="form-control">
+          <div [hidden]="pass.valid || pass.pristine" class="help-block alert alert-danger">
+            Password is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
         </div>
       </div>
       <div class="form-group">
         <label class="col-xs-3 control-label">Confirm Password</label>
-        <div class="col-xs-9">
-          <input type="password" #passwordAgain placeholder="Password" class="form-control">
+        <div class="col-xs-9 has-feedback">
+          <input #passAgain="ngForm" required ngControl="passAgain" type="password" #passwordAgain placeholder="Password" class="form-control">
+          <div [hidden]="passAgain.valid || passAgain.pristine" class="help-block alert alert-danger">
+            Password is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
         </div>
       </div>
       <div class="form-group text-center">
         <div>
-          <button class="btn btn-success" type="submit">Register</button>
+          <button [disabled]="!(fname.valid && email.valid && pass.valid && passAgain.valid)" class="btn btn-success" type="submit">Register</button>
         </div>
       </div>
     </form>
