@@ -4,6 +4,8 @@ import { Router, RouterLink, RouteParams } from 'angular2/router';
 import parse = require('parse');
 import {Idea, Comment} from './../models/models';
 import {UpVoteComponent} from './upvote';
+import {PubSubService} from '../services/pubsub';
+import {ADDED_NEW_COMMENT} from '../const';
 
 const Parse = parse.Parse;
 
@@ -73,10 +75,25 @@ export class IdeaComponent {
   @Input() idea: Idea;
   @Output() onAddComment = new EventEmitter();
 
-  constructor(private router: Router) {
+  constructor(
+    private pubSubService: PubSubService,
+    private router: Router) {
+
     this.collapse = true;
     this.canEdit = false;
     this.comments = [];
+
+    pubSubService.subscribe(ADDED_NEW_COMMENT, this.addedCommentHandler.bind(this));
+
+  }
+
+  addedCommentHandler(ideaId: string) {
+    console.log('idea -', ideaId);
+    console.log(this.idea.id);
+    if (this.idea.id === ideaId) {
+      // we need to handle it
+      this.refreshComments();
+    }
   }
 
   toggleComments() {
@@ -93,8 +110,7 @@ export class IdeaComponent {
     }]);
   }
 
-  ngOnInit() {
-    this.canEdit = Parse.User.current().id === this.idea.author.id;
+  refreshComments() {
     const query = new Parse.Query(Comment);
     query.equalTo('idea', this.idea);
     query.find().then((results: any) => {
@@ -103,4 +119,14 @@ export class IdeaComponent {
       }
     });
   }
+
+  ngOnInit() {
+    this.canEdit = Parse.User.current().id === this.idea.author.id;
+    this.refreshComments();
+  }
+
+  ngOnDestroy() {
+    this.pubSubService.unsubscribe(ADDED_NEW_COMMENT, this.addedCommentHandler);
+  }
+
 }

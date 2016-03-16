@@ -5,12 +5,14 @@ import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {LoginPage, SignupPage, ForgotPage} from './pages';
 import {NewIdeaPage, EditIdeaPage, IdeaListPage} from './pages';
 import parse = require('parse');
+import {PubSubService} from './services/pubsub';
 
 const Parse = parse.Parse;
 const template = require('./app.html');
 
 @Component({
-  selector: 'idea-app'
+  selector: 'idea-app',
+  providers: [PubSubService]
 })
 @View({
   template: template,

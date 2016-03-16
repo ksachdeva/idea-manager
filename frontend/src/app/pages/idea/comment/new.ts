@@ -4,6 +4,8 @@ import {Modal, ModalDialogInstance,
 ICustomModal, ICustomModalComponent} from 'angular2-modal';
 import {Idea, Comment} from './../../../models/models';
 import {RichTextComponent} from '../../../components/richtext';
+import {PubSubService} from '../../../services/pubsub';
+import {ADDED_NEW_COMMENT} from '../../../const';
 
 import parse = require('parse');
 const Parse = parse.Parse;
@@ -51,6 +53,7 @@ export class NewCommentModal implements ICustomModalComponent {
   @ViewChild(RichTextComponent) richText: RichTextComponent;
 
   constructor(
+    private pubSubService: PubSubService,
     dialog: ModalDialogInstance,
     modelContentData: ICustomModal) {
     this.dialog = dialog;
@@ -69,6 +72,7 @@ export class NewCommentModal implements ICustomModalComponent {
     commentObj.idea.id = this.context.ideaObjectId;
 
     commentObj.save(commentObj.attrs).then((success) => {
+      this.pubSubService.publish(ADDED_NEW_COMMENT, this.context.ideaObjectId);
       this.dialog.close();
     });
   }

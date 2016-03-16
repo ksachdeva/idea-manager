@@ -9,6 +9,7 @@ YesNoModalContent, YesNoModal} from 'angular2-modal';
 import {Idea, Comment} from './../../../models/models';
 import {INewCommentData, NewCommentModal} from '../comment/new';
 import {IdeaComponent} from '../../../components/idea';
+import {PubSubService} from '../../../services/pubsub';
 
 const Parse = parse.Parse;
 const template = require('./list.html');
@@ -24,7 +25,10 @@ export class IdeaListPage {
   ideas: Idea[];
   username: string;
 
-  constructor(public router: Router, private modal: Modal) {
+  constructor(
+    private pubSubService: PubSubService,
+    public router: Router,
+    private modal: Modal) {
     this.ideas = [];
     this.username = Parse.User.current().get('name');
   }
@@ -46,6 +50,9 @@ export class IdeaListPage {
           ideaObjectId: idea.id,
           ideaTitle: idea.title
         }
+      }),
+      provide(PubSubService, {
+        useValue: this.pubSubService
       })
     ]);
 
