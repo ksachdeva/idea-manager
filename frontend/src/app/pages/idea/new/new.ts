@@ -31,6 +31,17 @@ export class NewIdeaPage {
   save() {
     this.idea.author = Parse.User.current();
     this.idea.summary = this.richText.value;
+
+    const acl = new Parse.ACL();
+    // admins can always read
+    acl.setRoleReadAccess('Admin', true);
+    // only this user can edit and read the post
+    acl.setWriteAccess(Parse.User.current().id, true);
+    acl.setReadAccess(Parse.User.current().id, true);
+    acl.setPublicReadAccess(!this.idea.isPrivate);
+
+    this.idea.setACL(acl);
+
     this.idea.save(this.idea.attrs).then((success) => this.router.parent.navigate(['IdeaList']));
   }
 }

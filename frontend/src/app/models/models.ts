@@ -7,14 +7,14 @@ export class Idea extends Parse.Object {
   id: String;
   title: String;
   summary: String;
-  isPublic: boolean;
+  isPrivate: boolean;
   author: Parse.User;
   contributors: String[];
 
   constructor(parseIdea?: any) {
     super('Idea');
 
-    this.isPublic = true;
+    this.isPrivate = false;
     this.contributors = [];
 
     if (parseIdea) {
@@ -30,7 +30,7 @@ export class Idea extends Parse.Object {
       title: this.title,
       summary: this.summary,
       author: this.author,
-      isPublic: this.isPublic,
+      isPrivate: this.isPrivate,
       contributors: this.contributors
     };
   }
