@@ -4,21 +4,19 @@ import { Router, RouterLink, RouteParams } from 'angular2/router';
 import parse = require('parse');
 import {Idea, Comment} from './../models/models';
 import {CommentCountPipe} from './../pipes/count-pipe';
+import {UpVoteComponent} from './upvote';
 
 const Parse = parse.Parse;
 
 @Component({
   selector: 'idea',
   pipes: [CommentCountPipe],
-  directives: [CORE_DIRECTIVES],
+  directives: [CORE_DIRECTIVES, UpVoteComponent],
   template: `
   <div class="panel panel-primary" >
     <div class="panel-heading clearfix">
       <h3 class="panel-title pull-left">{{idea.title}}</h3>
-      <a (click)="editIdea()" [hidden]="!canEdit" class="btn btn-success pull-right">
-        <i class="fa fa-pencil"></i>
-        Edit
-      </a>
+      <upvote class="pull-right"></upvote>
     </div>
     <div class="list-group">
       <div class="list-group-item">
@@ -54,8 +52,16 @@ const Parse = parse.Parse;
     <div class="panel-footer">
       <a class="pull-left" href="javascript:void(0)" (click)="toggleComments()"><span class="badge">
       <i class="fa fa-comments"></i> {{ idea.id | commentCount }} Comments</span></a>
-      <a class="pull-right" href="javascript:void(0)" (click)="newComment()">
-      <i class="fa fa-plus"></i> Add Comment</a>
+
+      <div class="pull-right">
+        <a href="javascript:void(0)" (click)="newComment()">
+          <i class="fa fa-plus"></i> Add Comment
+        </a>
+        <a (click)="editIdea()" [hidden]="!canEdit"
+          href="javascript:void(0)" (click)="editIdea()">
+          <i class="fa fa-edit"></i> Edit
+        </a>
+      </div>
     </div>
   </div>
   `
@@ -90,7 +96,6 @@ export class IdeaComponent {
 
   ngOnInit() {
     this.canEdit = Parse.User.current().id === this.idea.author.id;
-    console.log(this.canEdit);
     const query = new Parse.Query(Comment);
     query.equalTo('idea', this.idea);
     query.find().then((results: any) => {
