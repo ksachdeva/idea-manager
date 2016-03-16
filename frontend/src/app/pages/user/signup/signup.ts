@@ -31,7 +31,7 @@ export class SignupPage {
   }
 
   private _onSuccessfullSignup() {
-    this.router.parent.navigate(['Home']);
+    this.router.parent.navigate(['IdeaList']);
   }
 
 }
