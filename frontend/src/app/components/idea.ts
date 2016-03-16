@@ -3,14 +3,12 @@ import {CORE_DIRECTIVES} from 'angular2/common';
 import { Router, RouterLink, RouteParams } from 'angular2/router';
 import parse = require('parse');
 import {Idea, Comment} from './../models/models';
-import {CommentCountPipe} from './../pipes/count-pipe';
 import {UpVoteComponent} from './upvote';
 
 const Parse = parse.Parse;
 
 @Component({
   selector: 'idea',
-  pipes: [CommentCountPipe],
   directives: [CORE_DIRECTIVES, UpVoteComponent],
   template: `
   <div class="panel panel-primary" >
@@ -51,7 +49,7 @@ const Parse = parse.Parse;
 
     <div class="panel-footer">
       <a class="pull-left" href="javascript:void(0)" (click)="toggleComments()"><span class="badge">
-      <i class="fa fa-comments"></i> {{ idea.id | commentCount }} Comments</span></a>
+      <i class="fa fa-comments"></i> {{ comments.length }} Comments</span></a>
 
       <div class="pull-right">
         <a href="javascript:void(0)" (click)="newComment()">
@@ -78,6 +76,7 @@ export class IdeaComponent {
   constructor(private router: Router) {
     this.collapse = true;
     this.canEdit = false;
+    this.comments = [];
   }
 
   toggleComments() {
@@ -99,7 +98,9 @@ export class IdeaComponent {
     const query = new Parse.Query(Comment);
     query.equalTo('idea', this.idea);
     query.find().then((results: any) => {
-      this.comments = results.map((r) => new Comment(r));
+      if (results) {
+        this.comments = results.map((r) => new Comment(r));
+      }
     });
   }
 }
