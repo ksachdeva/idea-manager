@@ -31,7 +31,11 @@ const template = require('./app.html');
 export class App {
   constructor(public router: Router) {
     Parse.initialize('myAppId', 'empty');
-    Parse.serverURL = 'http://localhost:1337/parse';
+    if ('production' === process.env.ENV) {
+      Parse.serverURL = '/parse';
+    } else {
+      Parse.serverURL = 'http://localhost:1337/parse';
+    }
   }
 
   isUserLoggedOut() {
