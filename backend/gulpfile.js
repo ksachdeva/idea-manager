@@ -57,3 +57,23 @@ gulp.task('build_image', function (cb) {
 gulp.task('push_image', function (cb) {
   runSequence('build_image', 'docker_push_image', cb);
 });
+
+// below are the tasks to run the containers locally
+// for testing.
+
+// change it to your DOCKER HOST ADDR
+var DOCKER_HOST_ADDR = '192.168.99.100';
+
+// Run standard mongo container
+gulp.task('run_mongodb', shell.task([
+  'docker run -p 27017:27017 --name idea-mongo' + ' ' + '-d mongo'
+]));
+
+// environment settings for app
+var app_environment = " -e APP_ID=" + "myAppId";
+app_environment += " -e MASTER_KEY=" + "myMasterKey";
+app_environment += " -e DATABASE_URI=" + "mongodb://" + DOCKER_HOST_ADDR + ":27017/idea";
+
+gulp.task('run_app_container', shell.task([
+  'docker run -i --rm -p 1337:1337 --name idea-manager' + app_environment + ' ' + docker_repo_name_with_tag
+]));
