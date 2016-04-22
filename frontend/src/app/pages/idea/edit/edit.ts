@@ -1,4 +1,4 @@
-import { Component, View, ViewChild } from 'angular2/core';
+import { Component, ViewChild } from 'angular2/core';
 import { Router, RouterLink, RouteParams } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import parse = require('parse');
@@ -10,9 +10,7 @@ const Parse = parse.Parse;
 const template = require('./edit.html');
 
 @Component({
-  selector: 'edit-idea'
-})
-@View({
+  selector: 'edit-idea',
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES, RichTextComponent],
   template: template
 })

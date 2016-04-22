@@ -1,4 +1,4 @@
-import { Component, View } from 'angular2/core';
+import { Component} from 'angular2/core';
 import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
@@ -8,9 +8,7 @@ const Parse = parse.Parse;
 const template = require('./login.html');
 
 @Component({
-  selector: 'login'
-})
-@View({
+  selector: 'login',
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES],
   template: template
 })

@@ -1,4 +1,4 @@
-import {View, Component} from 'angular2/core';
+import {Component} from 'angular2/core';
 import {Location, RouteConfig, RouterLink, Router} from 'angular2/router';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
@@ -12,9 +12,7 @@ const template = require('./app.html');
 
 @Component({
   selector: 'idea-app',
-  providers: [PubSubService]
-})
-@View({
+  providers: [PubSubService],
   template: template,
   directives: [RouterLink, LoggedInRouterOutlet]
 })

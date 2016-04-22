@@ -10,9 +10,7 @@ const Parse = parse.Parse;
 const template = require('./new.html');
 
 @Component({
-  selector: 'new-idea'
-})
-@View({
+  selector: 'new-idea',
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES, RichTextComponent],
   template: template
 })
