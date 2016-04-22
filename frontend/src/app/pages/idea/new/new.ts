@@ -1,4 +1,4 @@
-import { Component, View, ViewChild } from 'angular2/core';
+import { Component, ViewChild } from 'angular2/core';
 import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import parse = require('parse');
