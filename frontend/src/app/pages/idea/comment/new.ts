@@ -70,7 +70,8 @@ export class NewCommentModal implements ICustomModalComponent {
     commentObj.value = this.richText.value;
     commentObj.author = {
        email : this.store.user.email,
-       name: this.store.user.name
+       name: this.store.user.name,
+       uid: this.store.user.uid
     };
     commentObj.idea = this.context.ideaObjectId;
 

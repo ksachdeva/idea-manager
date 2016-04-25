@@ -28,8 +28,7 @@ export class SignupPage {
       password
     })
     .then((authData) => {
-      const hashedEmail = encodeEmail(username);
-      return this.af.object('/users/' + hashedEmail).set({
+      return this.af.object('/users/' + authData.uid).set({
         name,
         email: username
       });

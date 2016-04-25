@@ -12,6 +12,7 @@ export class User {
 export class UserInfo {
   email: string;
   name: string;
+  uid: string;
 }
 
 export class IdeaData {

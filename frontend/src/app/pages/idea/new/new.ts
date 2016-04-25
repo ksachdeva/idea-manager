@@ -35,7 +35,8 @@ export class NewIdeaPage {
 
     this.idea.meta.author = {
       email : this.store.user.email,
-      name: this.store.user.name
+      name: this.store.user.name,
+      uid: this.store.user.uid
     };
 
     this.idea.data.summary = this.richText.value;

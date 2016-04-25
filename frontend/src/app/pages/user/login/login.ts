@@ -31,8 +31,9 @@ export class LoginPage {
       password
     })
     .then((authData: FirebaseAuthState) => {
+      this.store.user.uid = authData.uid;
       return this.fb.child('users')
-            .child(encodeEmail(authData.password.email))
+            .child(authData.uid)
             .once('value');
     })
     .then((snapShot: FirebaseDataSnapshot) => {
