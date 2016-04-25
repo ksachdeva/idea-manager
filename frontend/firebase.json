@@ -1,0 +1,10 @@
+{
+  "firebase": "test-idea-manager",
+  "public": "dist",
+  "rules": "rules.json",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

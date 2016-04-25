@@ -1,0 +1,60 @@
+type UserInfo {
+  name: String,
+  email: String,
+  uid: String
+}
+
+type Comment {
+  value: String,
+  author: UserInfo,
+  idea: String
+}
+
+type IdeaData {
+  title: String,
+  summary: String
+}
+
+type IdeaMetaData {
+  isPrivate: Boolean,
+  author: UserInfo
+}
+
+type Idea {
+  data: IdeaData,
+  meta: IdeaMetaData,
+  comments: Map<String, Comment>
+}
+
+isNew(ref) { prior(ref) == null }
+
+isCurrentUser(userid) { auth != null && auth.uid == userid }
+
+path /users {
+  read() { true }
+
+  /{id} is UserInfo {
+     write() { isCurrentUser($id) }
+  }
+}
+
+path /ideas {
+  read() { true }
+
+  /{$id} is Idea {
+
+    write() { isNew(this) && auth != null }
+
+    /data is IdeaData {
+      write() { isCurrentUser(this.parent().meta.author.uid) }
+    }
+
+    /meta is IdeaMetaData {
+      write() { isCurrentUser(this.author.uid) }
+    }
+
+    /comments is Map<String, Comment> {
+      write() { auth != null }
+    }
+  }
+}

@@ -28,9 +28,16 @@ export class SignupPage {
       password
     })
     .then((authData) => {
+      return this.fbAuth.login({
+        email: username,
+        password
+      });
+    })
+    .then((authData) => {
       return this.af.object('/users/' + authData.uid).set({
         name,
-        email: username
+        email: username,
+        uid: authData.uid
       });
     })
     .then(authData => this._onSuccessfullSignup());
@@ -43,7 +50,7 @@ export class SignupPage {
   }
 
   private _onSuccessfullSignup() {
-    this.router.parent.navigate(['IdeaList']);
+    this.router.parent.navigate(['Login']);
   }
 
 }
