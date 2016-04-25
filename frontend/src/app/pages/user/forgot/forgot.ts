@@ -2,9 +2,7 @@ import { Component} from 'angular2/core';
 import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
-import parse = require('parse');
 
-const Parse = parse.Parse;
 const template = require('./forgot.html');
 
 @Component({

@@ -28,7 +28,7 @@ export interface INewCommentData {
 
           <div class="panel-body">
               <div class="form-group">
-                <div rich-text class="form-control rich-editor"></div>
+                <div rich-text class="form-control rich-editor" style="height:100px;"></div>
               </div>
               <div class="form-group text-center">
                 <div>

@@ -1,10 +1,10 @@
 import {Observable} from 'rxjs';
-import { Component, ViewChild } from 'angular2/core';
+import { Component, Inject, ViewChild } from 'angular2/core';
 import { Router, RouterLink, RouteParams } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import {Idea} from './../../../models/models';
 import {RichTextComponent} from '../../../components/richtext';
-import {AngularFire} from 'angularfire2';
+import {AngularFire, FirebaseRef} from 'angularfire2';
 
 const template = require('./edit.html');
 
@@ -15,36 +15,43 @@ const template = require('./edit.html');
 })
 export class EditIdeaPage {
 
-  idea: Observable<Idea>;
+  ideaKey: string;
+  idea: Idea;
   ideaId: string;
 
   @ViewChild(RichTextComponent) richText: RichTextComponent;
 
   constructor(
+    @Inject(FirebaseRef) private fb: Firebase,
     private af: AngularFire,
     public router: Router,
     params: RouteParams) {
 
-    this.idea = af.database.object('/ideas/' + params.get('id'));
+    this.ideaKey = params.get('id');
+
+    this.idea = new Idea();
   }
 
-
   ngOnInit() {
-
-    /*const parseIdea = new Idea();
-    parseIdea.id = this.ideaId;
-    parseIdea.fetch({}).then(() => {
-      this.idea = new Idea(parseIdea);
-      this.richText.editor.setContent(this.idea.summary, 0);
-    });*/
-
+    this.fb.child('ideas').child(this.ideaKey).once('value')
+      .then((snapShot: FirebaseDataSnapshot) => {
+        this.idea = snapShot.val();
+        this.richText.editor.setContent(this.idea.data.summary, 0);
+    });
   }
 
   save() {
-    // this.idea.summary = this.richText.value;
-    // this.idea.save(this.idea.attrs).then((success) => this.router.parent.navigate(['IdeaList']));
+    this.idea.data.summary = this.richText.value;
 
+    // save the data information
+    this.fb.child(`ideas/${this.ideaKey}/data`).set({
+      title: this.idea.data.title,
+      summary: this.idea.data.summary
+    }).then(() => {
+      this.router.parent.navigate(['IdeaList']);
+    });
 
+    // save the selective meta information
 
   }
 }

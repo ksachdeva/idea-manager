@@ -52,7 +52,7 @@ export class IdeaListPage {
       provide(ICustomModal, {
         useValue: {
           ideaObjectId: idea.$key,
-          ideaTitle: idea.title
+          ideaTitle: idea.data.title
         }
       })
     ]);
