@@ -1,19 +1,18 @@
 import {Component} from 'angular2/core';
 import {Location, RouteConfig, RouterLink, Router} from 'angular2/router';
+import {FirebaseAuth} from 'angularfire2';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {LoginPage, SignupPage, ForgotPage} from './pages';
 import {NewIdeaPage, EditIdeaPage, IdeaListPage} from './pages';
-import parse = require('parse');
-import {PubSubService} from './services/pubsub';
+import {Store} from './store';
 
-const Parse = parse.Parse;
 const template = require('./app.html');
 
 @Component({
   selector: 'idea-app',
-  providers: [PubSubService],
   template: template,
+  providers: [Store],
   directives: [RouterLink, LoggedInRouterOutlet]
 })
 @RouteConfig([
@@ -27,21 +26,27 @@ const template = require('./app.html');
 ])
 
 export class App {
-  constructor(public router: Router) {
-    Parse.initialize('myAppId', 'empty');
-    if ('production' === process.env.ENV) {
-      Parse.serverURL = '/parse';
-    } else {
-      Parse.serverURL = 'http://localhost:1337/parse';
+  constructor(
+    public router: Router,
+    private store: Store,
+    private fbAuth: FirebaseAuth) {
+
+  }
+
+  ngOnInit() {
+    if (!this.isUserLoggedOut()) {
+      this.store.populateUserInfoFromLocalStorage();
+      this.store.user.loggedIn = true;
     }
   }
 
   isUserLoggedOut() {
-    return Parse.User.current() === null;
+    return this.fbAuth.getAuth() === null;
   }
 
   logout() {
-    Parse.User.logOut().then(() => this.router.navigate(['Login']));
+    this.fbAuth.logout();
+    this.router.navigate(['Login']);
   }
 
   isActive(instruction: any[]): boolean {

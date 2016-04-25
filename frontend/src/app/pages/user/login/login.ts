@@ -1,10 +1,11 @@
-import { Component} from 'angular2/core';
+import { Component, Inject} from 'angular2/core';
 import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
 import { Http, Headers } from 'angular2/http';
-import parse = require('parse');
+import { AngularFire, FirebaseRef, FirebaseAuthState, FirebaseAuth} from 'angularfire2';
+import {Store} from './../../../store';
+import {encodeEmail} from './../../../utils';
 
-const Parse = parse.Parse;
 const template = require('./login.html');
 
 @Component({
@@ -13,13 +14,35 @@ const template = require('./login.html');
   template: template
 })
 export class LoginPage {
-  constructor(public router: Router, public http: Http) {
+  constructor(
+    @Inject(FirebaseRef) private fb: Firebase,
+    public router: Router,
+    private af: AngularFire,
+    private fbAuth: FirebaseAuth,
+    private store: Store) {
+
   }
 
   login(event, username, password) {
     event.preventDefault();
-    Parse.User.logIn(username, password)
-      .then((success) => this._onSuccessfulLogin(), (error) => console.error('error'));
+
+    this.fbAuth.login({
+      email: username,
+      password
+    })
+    .then((authData: FirebaseAuthState) => {
+      return this.fb.child('users')
+            .child(encodeEmail(authData.password.email))
+            .once('value');
+    })
+    .then((snapShot: FirebaseDataSnapshot) => {
+      const val = snapShot.val();
+      this.store.user.loggedIn = true;
+      this.store.user.email = val.email;
+      this.store.user.name = val.name;
+      this.store.pushUserInfoInLocalStorage();
+      this._onSuccessfulLogin();
+    });
   }
 
   private _onSuccessfulLogin() {

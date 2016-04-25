@@ -1,8 +1,6 @@
 import {Directive, Attribute, ElementRef, DynamicComponentLoader} from 'angular2/core';
 import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
-import parse = require('parse');
-
-const Parse = parse.Parse;
+import {FirebaseAuth} from 'angularfire2';
 
 @Directive({
   selector: 'router-outlet'
@@ -11,8 +9,11 @@ export class LoggedInRouterOutlet extends RouterOutlet {
   publicRoutes: any;
   private parentRouter: Router;
 
-  constructor(_elementRef: ElementRef, _loader: DynamicComponentLoader,
+  constructor(
+    private fbAuth: FirebaseAuth,
+    _elementRef: ElementRef, _loader: DynamicComponentLoader,
     _parentRouter: Router, @Attribute('name') nameAttr: string) {
+
     super(_elementRef, _loader, _parentRouter, nameAttr);
 
     this.parentRouter = _parentRouter;
@@ -28,6 +29,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
   }
 
   _canActivate(url) {
-    return this.publicRoutes.indexOf(url) !== -1 || (Parse.User.current() !== null);
+    const authData = this.fbAuth.getAuth();
+    return this.publicRoutes.indexOf(url) !== -1 || (authData !== null);
   }
 }

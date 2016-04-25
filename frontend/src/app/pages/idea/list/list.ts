@@ -1,17 +1,19 @@
+import {Observable} from 'rxjs';
 import { Component, provide, Injector } from 'angular2/core';
-
 import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import parse = require('parse');
-import {ModalDialogInstance, ModalConfig, Modal, ICustomModal,
-YesNoModalContent, YesNoModal} from 'angular2-modal';
+
+import {AngularFire} from 'angularfire2';
+
+import {ModalDialogInstance, ModalConfig, Modal,
+   ICustomModal, YesNoModalContent, YesNoModal} from 'angular2-modal';
 
 import {Idea, Comment} from './../../../models/models';
 import {INewCommentData, NewCommentModal} from '../comment/new';
 import {IdeaComponent} from '../../../components/idea';
-import {PubSubService} from '../../../services/pubsub';
 
-const Parse = parse.Parse;
+import {Store} from './../../../store';
+
 const template = require('./list.html');
 
 @Component({
@@ -22,37 +24,36 @@ const template = require('./list.html');
 })
 export class IdeaListPage {
 
-  ideas: Idea[];
+  ideas: Observable<Idea[]>;
   username: string;
 
   constructor(
-    private pubSubService: PubSubService,
+    private af: AngularFire,
+    private store: Store,
     public router: Router,
     private modal: Modal) {
-    this.ideas = [];
-    this.username = Parse.User.current().get('name');
+
+    this.ideas = af.database.list('/ideas');
+    this.username = store.user.name;
   }
 
   ngOnInit() {
-    const query = new Parse.Query(Idea);
-    query.find().then((results: any) => {
-      this.ideas = results.map((r) => new Idea(r));
-    });
   }
 
   newComment(idea: Idea) {
+
     let dialog: Promise<ModalDialogInstance>;
     let component = NewCommentModal;
 
     let bindings = Injector.resolve([
+      provide(Store, {
+        useValue: this.store
+      }),
       provide(ICustomModal, {
         useValue: {
-          ideaObjectId: idea.id,
+          ideaObjectId: idea.$key,
           ideaTitle: idea.title
         }
-      }),
-      provide(PubSubService, {
-        useValue: this.pubSubService
       })
     ]);
 

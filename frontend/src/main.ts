@@ -10,14 +10,17 @@ import './assets/app.css';
 import 'medium-editor/dist/css/medium-editor.css';
 import 'medium-editor/dist/css/themes/bootstrap.css';
 
+import {provide} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
+import {LocationStrategy, HashLocationStrategy} from 'angular2/router';
 
 import {App, APP_PROVIDERS} from './app';
 
 export function main(initialHmrState?: any): Promise<any> {
 
   return bootstrap(App, [
-    ...APP_PROVIDERS
+    ...APP_PROVIDERS,
+    provide(LocationStrategy, { useClass: HashLocationStrategy })
   ])
   .catch(err => console.error(err));
 }

@@ -1,13 +1,11 @@
+import {Observable} from 'rxjs';
 import {Component, Input, Output, ElementRef, EventEmitter} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
 import { Router, RouterLink, RouteParams } from 'angular2/router';
-import parse = require('parse');
 import {Idea, Comment} from './../models/models';
 import {UpVoteComponent} from './upvote';
-import {PubSubService} from '../services/pubsub';
-import {ADDED_NEW_COMMENT} from '../const';
-
-const Parse = parse.Parse;
+import {AngularFire} from 'angularfire2';
+import {Store} from './../store';
 
 @Component({
   selector: 'idea',
@@ -15,16 +13,17 @@ const Parse = parse.Parse;
   template: `
   <div class="panel panel-primary" >
     <div class="panel-heading clearfix">
-      <h3 class="panel-title pull-left">{{idea.title}}</h3>
-      <upvote class="pull-right"></upvote>
+      <h3 class="panel-title pull-left">{{idea.data.title}}</h3>
+      <!--
+      <upvote class="pull-right"></upvote> -->
     </div>
     <div class="list-group">
       <div class="list-group-item">
-        <div class="list-group-item-text" [innerHTML]="idea.summary"></div>
+        <div class="list-group-item-text" [innerHTML]="idea.data.summary"></div>
       </div>
       <div class="list-group-item">
         <p class="list-group-item-text">Author</p>
-        <p class="list-group-item-heading">{{idea.author.get('name')}}</p>
+        <p class="list-group-item-heading">{{idea.meta.author.name}}</p>
       </div>
     </div>
 
@@ -36,13 +35,13 @@ const Parse = parse.Parse;
         </a>
       </div>
 
-      <div *ngFor="#c of comments" class="panel panel-default" style="margin:10px;">
+      <div *ngFor="#c of comments | async" class="panel panel-default" style="margin:10px;">
         <div class="list-group">
           <div class="list-group-item">
             <div class="list-group-item-text" [innerHTML]="c.value"></div>
           </div>
           <div class="list-group-item">
-            <p class="list-group-item-text">by {{c.author.get('name')}}</p>
+            <p class="list-group-item-text">by {{c.author.name}}</p>
           </div>
         </div>
       </div>
@@ -51,7 +50,7 @@ const Parse = parse.Parse;
 
     <div class="panel-footer">
       <a class="pull-left" href="javascript:void(0)" (click)="toggleComments()"><span class="badge">
-      <i class="fa fa-comments"></i> {{ comments.length }} Comments</span></a>
+      <i class="fa fa-comments"></i> {{ (comments | async).length }} Comments</span></a>
 
       <div class="pull-right">
         <a href="javascript:void(0)" (click)="newComment()">
@@ -70,28 +69,17 @@ export class IdeaComponent {
 
   collapse: boolean;
   canEdit: boolean;
-  comments: Comment[];
+  comments: Observable<Comment[]>;
 
   @Input() idea: Idea;
   @Output() onAddComment = new EventEmitter();
 
   constructor(
-    private pubSubService: PubSubService,
+    private store: Store,
+    private af: AngularFire,
     private router: Router) {
 
     this.collapse = true;
-    this.canEdit = false;
-    this.comments = [];
-
-    pubSubService.subscribe(ADDED_NEW_COMMENT, this.addedCommentHandler.bind(this));
-
-  }
-
-  addedCommentHandler(ideaId: string) {
-    if (this.idea.id === ideaId) {
-      // we need to handle it
-      this.refreshComments();
-    }
   }
 
   toggleComments() {
@@ -104,27 +92,15 @@ export class IdeaComponent {
 
   editIdea() {
     this.router.parent.navigate(['EditIdea', {
-      id: this.idea.id
+      id: this.idea.$key
     }]);
   }
 
-  refreshComments() {
-    const query = new Parse.Query(Comment);
-    query.equalTo('idea', this.idea);
-    query.find().then((results: any) => {
-      if (results) {
-        this.comments = results.map((r) => new Comment(r));
-      }
-    });
-  }
-
   ngOnInit() {
-    this.canEdit = Parse.User.current().id === this.idea.author.id;
-    this.refreshComments();
+    this.canEdit = this.store.user.email === this.idea.meta.author.email;
+    this.comments = this.af.database.list(`/ideas/${this.idea.$key}/comments`);
   }
 
   ngOnDestroy() {
-    this.pubSubService.unsubscribe(ADDED_NEW_COMMENT, this.addedCommentHandler);
   }
-
 }

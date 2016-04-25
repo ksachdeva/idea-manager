@@ -1,14 +1,12 @@
 import {Component, Input, ViewChild} from 'angular2/core';
 import {CORE_DIRECTIVES} from 'angular2/common';
-import {Modal, ModalDialogInstance,
-ICustomModal, ICustomModalComponent} from 'angular2-modal';
+import {Modal, ModalDialogInstance, ICustomModal, ICustomModalComponent} from 'angular2-modal';
 import {Idea, Comment} from './../../../models/models';
 import {RichTextComponent} from '../../../components/richtext';
-import {PubSubService} from '../../../services/pubsub';
 import {ADDED_NEW_COMMENT} from '../../../const';
+import {AngularFire} from 'angularfire2';
 
-import parse = require('parse');
-const Parse = parse.Parse;
+import {Store} from './../../../store';
 
 export interface INewCommentData {
   ideaObjectId: string;
@@ -53,9 +51,11 @@ export class NewCommentModal implements ICustomModalComponent {
   @ViewChild(RichTextComponent) richText: RichTextComponent;
 
   constructor(
-    private pubSubService: PubSubService,
+    private af: AngularFire,
+    private store: Store,
     dialog: ModalDialogInstance,
     modelContentData: ICustomModal) {
+
     this.dialog = dialog;
     this.context = <INewCommentData>modelContentData;
   }
@@ -65,16 +65,18 @@ export class NewCommentModal implements ICustomModalComponent {
   }
 
   saveComment() {
+
     const commentObj = new Comment();
     commentObj.value = this.richText.value;
-    commentObj.author = Parse.User.current();
-    commentObj.idea = new Idea();
-    commentObj.idea.id = this.context.ideaObjectId;
+    commentObj.author = {
+       email : this.store.user.email,
+       name: this.store.user.name
+    };
+    commentObj.idea = this.context.ideaObjectId;
 
-    commentObj.save(commentObj.attrs).then((success) => {
-      this.pubSubService.publish(ADDED_NEW_COMMENT, this.context.ideaObjectId);
-      this.dialog.close();
-    });
+    this.af.database.list('/ideas/' + this.context.ideaObjectId + '/comments')
+      .push(commentObj)
+      .then(() => this.dialog.close());
   }
 
   onKeyUp(value) {

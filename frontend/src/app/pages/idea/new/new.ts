@@ -1,12 +1,13 @@
 import { Component, ViewChild } from 'angular2/core';
 import { Router, RouterLink } from 'angular2/router';
 import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import parse = require('parse');
-
+import {AngularFire, FirebaseAuth} from 'angularfire2';
+import * as _ from 'lodash';
 import {Idea} from './../../../models/models';
 import {RichTextComponent} from '../../../components/richtext';
 
-const Parse = parse.Parse;
+import {Store} from './../../../store';
+
 const template = require('./new.html');
 
 @Component({
@@ -21,25 +22,27 @@ export class NewIdeaPage {
 
   @ViewChild(RichTextComponent) richText: RichTextComponent;
 
-  constructor(public router: Router) {
+  constructor(
+    private store: Store,
+    private af: AngularFire,
+    public router: Router) {
+
     this.idea = new Idea();
     this.isBusy = false;
   }
 
   save() {
-    this.idea.author = Parse.User.current();
-    this.idea.summary = this.richText.value;
 
-    const acl = new Parse.ACL();
-    // admins can always read
-    acl.setRoleReadAccess('Admin', true);
-    // only this user can edit and read the post
-    acl.setWriteAccess(Parse.User.current().id, true);
-    acl.setReadAccess(Parse.User.current().id, true);
-    acl.setPublicReadAccess(!this.idea.isPrivate);
+    this.idea.meta.author = {
+      email : this.store.user.email,
+      name: this.store.user.name
+    };
 
-    this.idea.setACL(acl);
+    this.idea.data.summary = this.richText.value;
 
-    this.idea.save(this.idea.attrs).then((success) => this.router.parent.navigate(['IdeaList']));
+    this.af.list('/ideas')
+      .push(_.omit(this.idea, '$key'))
+      .then(() => this.router.parent.navigate(['IdeaList']));
+
   }
 }

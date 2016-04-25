@@ -5,7 +5,6 @@
   "author": "Kapil Sachdeva <ksachdeva17@gmail.com>",
   "license": "MIT",
   "scripts": {
-
     "rimraf": "rimraf",
     "tslint": "tslint",
     "typedoc": "typedoc",
@@ -52,15 +51,19 @@
   },
   "dependencies": {
     "angular2": "2.0.0-beta.15",
-    "core-js": "^2.2.2",
     "angular2-modal": "0.0.4",
+    "angularfire2": "^2.0.0-alpha.16",
     "bootcards": "^1.1.2",
     "bootstrap": "^3.3.6",
+    "core-js": "^2.2.2",
     "es6-promise": "^3.1.2",
     "es6-shim": "^0.33.3",
     "es7-reflect-metadata": "^1.6.0",
+    "firebase": "^2.4.2",
     "font-awesome": "^4.5.0",
     "jquery": "^2.2.1",
+    "jssha": "^2.0.2",
+    "lodash": "^4.11.1",
     "medium-editor": "^5.14.4",
     "parse": "^1.7.1",
     "rxjs": "5.0.0-beta.2",
