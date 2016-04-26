@@ -1,5 +1,6 @@
 const Firebase = require('firebase');
 const crypto = require('crypto');
+const mailer = require('./../mailer');
 const config = require('./../config');
 
 const fb = new Firebase(config.FB_DB);
@@ -24,17 +25,17 @@ fb.authWithCustomToken(config.FB_MASTER_SECRET).then((authData) => {
   fb.child('users').on('child_added', (snapShot) => {
     // check if we have a corresponding verification entry
     const uid = snapShot.val().uid;
+    const email = snapShot.val().email;
 
     fb.child(`meta/users/${uid}`).once('value').then((metaSnapShot) => {
+      // if the node does not exists then create one
       if (metaSnapShot.val() === null) {
         const generatedCode = generateUniqueCode();
         // we ought to create it
         fb.child(`meta/users/${uid}`).set({
           verified: false,
           code: generatedCode
-        }).then(() => {
-          // TODO send an email
-        });
+        }).then(() => mailer.sendEmailVerification(generatedCode, email));
       }
     });
   });

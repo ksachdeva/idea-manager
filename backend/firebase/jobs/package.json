@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^2.4.2",
-    "node-env-file": "^0.1.8"
+    "node-env-file": "^0.1.8",
+    "nodemailer": "^2.3.2"
   },
   "devDependencies": {}
 }
