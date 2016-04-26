@@ -4,6 +4,10 @@ type UserInfo {
   uid: String
 }
 
+type CodeVerifier {
+  code: String
+}
+
 type Comment {
   value: String,
   author: UserInfo,
@@ -29,6 +33,19 @@ type Idea {
 isNew(ref) { prior(ref) == null }
 
 isCurrentUser(userid) { auth != null && auth.uid == userid }
+
+path /meta/users {
+  read() { true }
+  write() { false }
+}
+
+path /code_verifier {
+  read() { false }
+
+  /{id} is CodeVerifier {
+    write() { isCurrentUser($id) }
+  }
+}
 
 path /users {
   read() { true }
