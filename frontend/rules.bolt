@@ -32,10 +32,12 @@ type Idea {
 
 isNew(ref) { prior(ref) == null }
 
-isCurrentUser(userid) { auth != null && auth.uid == userid }
+isCurrentUser(userid) { (auth != null) && (auth.uid == userid) }
+
+isAccountVerified(userId) { root.child('meta').child('users').child(userId).verified == true }
 
 path /meta/users {
-  read() { true }
+  read() { false }
   write() { false }
 }
 
@@ -56,11 +58,11 @@ path /users {
 }
 
 path /ideas {
-  read() { true }
+  read() { (auth != null) && isAccountVerified(auth.uid) }
 
   /{$id} is Idea {
 
-    write() { isNew(this) && auth != null }
+    write() { isNew(this) && (auth != null) && isAccountVerified(auth.uid) }
 
     /data is IdeaData {
       write() { isCurrentUser(this.parent().meta.author.uid) }
