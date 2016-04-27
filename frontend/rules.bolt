@@ -4,6 +4,11 @@ type UserInfo {
   uid: String
 }
 
+type ApplicationMetaInfo {
+  requireEmailVerification: Boolean,
+  whiteListDomains: String
+}
+
 type UserMetaInfo {
   code: String,
   verified: Boolean
@@ -39,7 +44,7 @@ isNew(ref) { prior(ref) == null }
 
 isCurrentUser(userid) { (auth != null) && (auth.uid == userid) }
 
-isAccountVerified(userId) { root.child('meta').child('users').child(userId).child('verified').val() == true }
+isAccountVerified(userId) { (root.child('meta').child('app').child('requireEmailVerification').val() == false) || (root.child('meta').child('users').child(userId).child('verified').val() == true) }
 
 path /meta/users {
   read() { false }
@@ -48,6 +53,11 @@ path /meta/users {
   /{id} is UserMetaInfo {
 
   }
+}
+
+path /meta/app is ApplicationMetaInfo {
+  read() { false }
+  write() { false }
 }
 
 path /code_verifier {
