@@ -11,13 +11,6 @@
     "typings/main.d.ts",
     "typings/main"
   ],
-  "filesGlob": [
-    "./src/**/*.ts",
-    "./test/**/*.ts",
-    "!./node_modules/**/*.ts",
-    "local_typings/**/*.d.ts",
-    "typings/browser.d.ts"
-  ],
   "awesomeTypescriptLoaderOptions": {
     "useCache": true,
     "resolveGlobs": true,
