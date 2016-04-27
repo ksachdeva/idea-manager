@@ -4,10 +4,12 @@ export class User {
   uid: string;
   loggedIn: boolean;
   verified: boolean;
+  isTemporaryPassword: boolean;
 
   constructor() {
     this.loggedIn = false;
     this.verified = false;
+    this.isTemporaryPassword = false;
   }
 }
 

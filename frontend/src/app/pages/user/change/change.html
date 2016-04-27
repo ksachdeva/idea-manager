@@ -1,0 +1,66 @@
+<div class="panel panel-primary">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Change your Password</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" role="form" (submit)="change($event, username.value, tempPassword.value, password.value, passwordAgain.value)">
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Email</label>
+        <div class="col-xs-9 has-feedback">
+          <input #email="ngForm" required ngControl="email" type="text" #username placeholder="you@email.com" class="form-control">
+          <div [hidden]="email.valid || email.pristine" class="help-block alert alert-danger">
+            Email is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Current Password</label>
+        <div class="col-xs-9 has-feedback">
+          <input #tpass="ngForm" required ngControl="tpass" type="password" #tempPassword placeholder="Current Password" class="form-control">
+          <div [hidden]="tpass.valid || tpass.pristine" class="help-block alert alert-danger">
+            Current Password is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">New Password</label>
+        <div class="col-xs-9 has-feedback">
+          <input #pass="ngForm" required ngControl="pass" type="password" #password placeholder="Password" class="form-control">
+          <div [hidden]="pass.valid || pass.pristine" class="help-block alert alert-danger">
+            Password is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-3 control-label">Confirm Password</label>
+        <div class="col-xs-9 has-feedback">
+          <input #passAgain="ngForm" required ngControl="passAgain" type="password" #passwordAgain placeholder="Password" class="form-control">
+          <div [hidden]="passAgain.valid || passAgain.pristine" class="help-block alert alert-danger">
+            Password is required
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <div>
+          <button [disabled]="!(tpass.valid && email.valid && pass.valid && passAgain.valid)" class="btn btn-success" type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="panel-footer text-center">
+    <div >
+      <ul class="list-inline">
+        <li>
+          <a [routerLink]="['/Forgot']">Forgot Password</a>
+        </li>
+        <li>
+          <a [routerLink]="['/Login']">Login</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

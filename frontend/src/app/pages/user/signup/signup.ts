@@ -38,7 +38,8 @@ export class SignupPage {
           name,
           email: username,
           uid: authData.uid,
-          verified: false
+          verified: false,
+          verification_in_progress: false
         });
       })
       .then(authData => this._onSuccessfullSignup());

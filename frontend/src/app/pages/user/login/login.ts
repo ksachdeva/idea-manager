@@ -32,6 +32,7 @@ export class LoginPage {
     })
       .then((authData: FirebaseAuthState) => {
         this.store.user.uid = authData.uid;
+        this.store.user.isTemporaryPassword = authData.password.isTemporaryPassword;
         return this.fb.child('users')
           .child(authData.uid)
           .once('value');
@@ -44,10 +45,14 @@ export class LoginPage {
         this.store.user.verified = val.verified;
         this.store.pushUserInfoInLocalStorage();
 
-        if (val.verified) {
-          this._onSuccessfulLogin();
+        if (this.store.user.isTemporaryPassword) {
+          this.router.parent.navigate(['ChangePassword']);
         } else {
-          this.router.parent.navigate(['Verify']);
+          if (val.verified) {
+            this._onSuccessfulLogin();
+          } else {
+            this.router.parent.navigate(['Verify']);
+          }
         }
       });
   }

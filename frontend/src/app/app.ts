@@ -4,7 +4,7 @@ import {FirebaseAuth} from 'angularfire2';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {LoginPage, SignupPage, ForgotPage} from './pages';
-import {NewIdeaPage, EditIdeaPage, IdeaListPage, VerifyPage} from './pages';
+import {NewIdeaPage, EditIdeaPage, IdeaListPage, VerifyPage, ChangePasswordPage} from './pages';
 import {Store} from './store';
 
 const template = require('./app.html');
@@ -19,6 +19,7 @@ const template = require('./app.html');
   { path: '/', redirectTo: ['/IdeaList'] },
   { path: '/verify', component: VerifyPage, as: 'Verify' },
   { path: '/login', component: LoginPage, as: 'Login' },
+  { path: '/change', component: ChangePasswordPage, as: 'ChangePassword' },
   { path: '/forgot', component: ForgotPage, as: 'Forgot' },
   { path: '/signup', component: SignupPage, as: 'SignUp' },
   { path: '/idea/new', component: NewIdeaPage, as: 'NewIdea' },
