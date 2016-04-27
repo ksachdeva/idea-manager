@@ -30,20 +30,26 @@ export class LoginPage {
       email: username,
       password
     })
-    .then((authData: FirebaseAuthState) => {
-      this.store.user.uid = authData.uid;
-      return this.fb.child('users')
-            .child(authData.uid)
-            .once('value');
-    })
-    .then((snapShot: FirebaseDataSnapshot) => {
-      const val = snapShot.val();
-      this.store.user.loggedIn = true;
-      this.store.user.email = val.email;
-      this.store.user.name = val.name;
-      this.store.pushUserInfoInLocalStorage();
-      this._onSuccessfulLogin();
-    });
+      .then((authData: FirebaseAuthState) => {
+        this.store.user.uid = authData.uid;
+        return this.fb.child('users')
+          .child(authData.uid)
+          .once('value');
+      })
+      .then((snapShot: FirebaseDataSnapshot) => {
+        const val = snapShot.val();
+        this.store.user.loggedIn = true;
+        this.store.user.email = val.email;
+        this.store.user.name = val.name;
+        this.store.user.verified = val.verified;
+        this.store.pushUserInfoInLocalStorage();
+
+        if (val.verified) {
+          this._onSuccessfulLogin();
+        } else {
+          this.router.parent.navigate(['Verify']);
+        }
+      });
   }
 
   private _onSuccessfulLogin() {

@@ -3,9 +3,11 @@ export class User {
   email: string;
   uid: string;
   loggedIn: boolean;
+  verified: boolean;
 
   constructor() {
     this.loggedIn = false;
+    this.verified = false;
   }
 }
 

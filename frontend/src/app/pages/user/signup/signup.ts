@@ -27,20 +27,21 @@ export class SignupPage {
       email: username,
       password
     })
-    .then((authData) => {
-      return this.fbAuth.login({
-        email: username,
-        password
-      });
-    })
-    .then((authData) => {
-      return this.af.object('/users/' + authData.uid).set({
-        name,
-        email: username,
-        uid: authData.uid
-      });
-    })
-    .then(authData => this._onSuccessfullSignup());
+      .then((authData) => {
+        return this.fbAuth.login({
+          email: username,
+          password
+        });
+      })
+      .then((authData) => {
+        return this.af.object('/users/' + authData.uid).set({
+          name,
+          email: username,
+          uid: authData.uid,
+          verified: false
+        });
+      })
+      .then(authData => this._onSuccessfullSignup());
 
   }
 

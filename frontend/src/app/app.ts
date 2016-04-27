@@ -4,7 +4,7 @@ import {FirebaseAuth} from 'angularfire2';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {LoginPage, SignupPage, ForgotPage} from './pages';
-import {NewIdeaPage, EditIdeaPage, IdeaListPage} from './pages';
+import {NewIdeaPage, EditIdeaPage, IdeaListPage, VerifyPage} from './pages';
 import {Store} from './store';
 
 const template = require('./app.html');
@@ -17,6 +17,7 @@ const template = require('./app.html');
 })
 @RouteConfig([
   { path: '/', redirectTo: ['/IdeaList'] },
+  { path: '/verify', component: VerifyPage, as: 'Verify' },
   { path: '/login', component: LoginPage, as: 'Login' },
   { path: '/forgot', component: ForgotPage, as: 'Forgot' },
   { path: '/signup', component: SignupPage, as: 'SignUp' },

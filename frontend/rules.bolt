@@ -1,7 +1,9 @@
 type UserInfo {
   name: String,
   email: String,
-  uid: String
+  uid: String,
+  verified: Boolean,
+  verification_in_progress: Boolean
 }
 
 type ApplicationMetaInfo {
