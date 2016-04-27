@@ -4,6 +4,11 @@ type UserInfo {
   uid: String
 }
 
+type UserMetaInfo {
+  code: String,
+  verified: Boolean
+}
+
 type CodeVerifier {
   code: String
 }
@@ -34,11 +39,15 @@ isNew(ref) { prior(ref) == null }
 
 isCurrentUser(userid) { (auth != null) && (auth.uid == userid) }
 
-isAccountVerified(userId) { root.child('meta').child('users').child(userId).verified == true }
+isAccountVerified(userId) { root.child('meta').child('users').child(userId).child('verified').val() == true }
 
 path /meta/users {
   read() { false }
   write() { false }
+
+  /{id} is UserMetaInfo {
+
+  }
 }
 
 path /code_verifier {
