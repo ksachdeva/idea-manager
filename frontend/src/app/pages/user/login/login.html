@@ -1,3 +1,6 @@
+<div class="alert alert-danger" [hidden]="!invalidCredentials">
+  <strong>Incorrect Credentials !</strong> If you have forgotten your password, you can <a [routerLink]="['/Forgot']">Reset</a> it !
+</div>
 <div class="panel panel-primary">
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">Sign In</h3>

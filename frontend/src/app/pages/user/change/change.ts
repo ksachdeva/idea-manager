@@ -13,31 +13,41 @@ const template = require('./change.html');
   template: template
 })
 export class ChangePasswordPage {
+
+  invalidCredentials: boolean;
+  errorMessage: string;
+
   constructor(
     @Inject(FirebaseRef) private fb: Firebase,
     private fbAuth: FirebaseAuth,
     public router: Router,
     public http: Http) {
+
+    this.invalidCredentials = false;
   }
 
   change(event, username, tmpPassword, password, passwordAgain) {
     event.preventDefault();
+
+    this.invalidCredentials = false;
 
     this.fb.changePassword({
       email: username,
       oldPassword: tmpPassword,
       newPassword: password
     }, (error) => {
+      this.invalidCredentials = true;
       if (error) {
         switch (error.code) {
           case 'INVALID_PASSWORD':
-            console.log('The specified user account password is incorrect.');
+            this.errorMessage = 'The specified user account password is incorrect.';
             break;
           case 'INVALID_USER':
-            console.log('The specified user account does not exist.');
+            this.errorMessage = 'The specified user account does not exist.';
             break;
           default:
             console.log('Error changing password:', error);
+            this.errorMessage = 'Unknown Error !!';
         }
       } else {
         console.log('User password changed successfully!');

@@ -14,6 +14,9 @@ const template = require('./login.html');
   template: template
 })
 export class LoginPage {
+
+  invalidCredentials: boolean;
+
   constructor(
     @Inject(FirebaseRef) private fb: Firebase,
     public router: Router,
@@ -21,10 +24,13 @@ export class LoginPage {
     private fbAuth: FirebaseAuth,
     private store: Store) {
 
+    this.invalidCredentials = false;
   }
 
   login(event, username, password) {
     event.preventDefault();
+
+    this.invalidCredentials = false;
 
     this.fbAuth.login({
       email: username,
@@ -54,6 +60,9 @@ export class LoginPage {
             this.router.parent.navigate(['Verify']);
           }
         }
+      })
+      .catch((error) => {
+        this.invalidCredentials = true;
       });
   }
 

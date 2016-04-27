@@ -12,19 +12,28 @@ const template = require('./forgot.html');
   template: template
 })
 export class ForgotPage {
+
+  invalidCredentials: boolean;
+
   constructor(
     @Inject(FirebaseRef) private fb: Firebase,
     public router: Router,
     public http: Http) {
+
+    this.invalidCredentials = false;
   }
 
   forgot(event, email) {
     event.preventDefault();
 
+    this.invalidCredentials = false;
+
     this.fb.resetPassword({
       email: email
     }, (error) => {
       if (error) {
+        this.invalidCredentials = true;
+        // TODO: Better handling of different error codes
         switch (error.code) {
           case 'INVALID_USER':
             console.log('The specified user account does not exist.');

@@ -14,15 +14,21 @@ const template = require('./verify.html');
 })
 export class VerifyPage {
 
+  invalidCredentials: boolean;
+
   constructor(
     @Inject(FirebaseRef) private fb: Firebase,
     public router: Router,
     private af: AngularFire,
     private store: Store) {
+
+    this.invalidCredentials = false;
   }
 
   verify(event, code_value) {
     event.preventDefault();
+
+    this.invalidCredentials = false;
 
     const userNode = `users/${this.store.user.uid}`;
 
@@ -45,7 +51,7 @@ export class VerifyPage {
                 if (snapShot.val() == true) {
                   this.router.parent.navigate(['IdeaList']);
                 } else {
-                  alert('Sorry wrong code');
+                  this.invalidCredentials = true;
                 }
               });
           }
