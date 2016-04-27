@@ -8,7 +8,7 @@ const fb = new Firebase(config.FB_DB);
 
 const getDomainFromEmail = (email) => {
   const email_string_array = email.split("@");
-  return email_string_array[email_string_array.length - 1];
+  return '@' + email_string_array[email_string_array.length - 1];
 };
 
 const generateUniqueCode = () => {
@@ -65,12 +65,21 @@ const startProcess = (whiteListDomains) => {
       fb.child(`meta/users/${entryKey}`).once('value').then((metaSnapShot) => {
         const generated_code_value = metaSnapShot.val().code;
         if (supplied_code_value === generated_code_value) {
+
           // set verified to true
           fb.child(`meta/users/${entryKey}`).set({
-            verified: true
-          });
+              verified: true
+            })
+            .then(() => fb.child(`users/${entryKey}/verified`).set(true))
+            .then(() => fb.child(`users/${entryKey}/verification_in_progress`).set(false));
+
           // destroy the code_verifier node
           fb.child(`code_verifier/${entryKey}`).remove();
+        } else {
+          // destroy the code_verifier node
+          fb.child(`code_verifier/${entryKey}`).remove();
+          // set the progress to false
+          fb.child(`users/${entryKey}/verification_in_progress`).set(false);
         }
       });
     });
