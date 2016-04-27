@@ -6,6 +6,12 @@ type UserInfo {
   verification_in_progress: Boolean
 }
 
+type AuthorInfo {
+  name: String,
+  email: String,
+  uid: String
+}
+
 type ApplicationMetaInfo {
   requireEmailVerification: Boolean,
   whiteListDomains: String
@@ -22,7 +28,7 @@ type CodeVerifier {
 
 type Comment {
   value: String,
-  author: UserInfo,
+  author: AuthorInfo,
   idea: String
 }
 
@@ -33,7 +39,7 @@ type IdeaData {
 
 type IdeaMetaData {
   isPrivate: Boolean,
-  author: UserInfo
+  author: AuthorInfo
 }
 
 type Idea {
