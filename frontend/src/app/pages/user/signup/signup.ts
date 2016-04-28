@@ -38,6 +38,12 @@ export class SignupPage {
 
     this.invalidCredentials = false;
 
+    if (password !== passwordAgain) {
+      this.invalidCredentials = true;
+      this.errorMessage = 'Your Passwords do not match !';
+      return;
+    }
+
     this.fb.child('meta/app').once('value').then((snapShot) => {
 
       const requireEmailVerification = snapShot.val().requireEmailVerification;
