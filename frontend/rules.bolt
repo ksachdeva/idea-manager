@@ -64,7 +64,7 @@ path /meta/users {
 }
 
 path /meta/app is ApplicationMetaInfo {
-  read() { false }
+  read() { true }
   write() { false }
 }
 
