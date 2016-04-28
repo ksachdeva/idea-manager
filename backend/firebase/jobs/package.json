@@ -14,5 +14,10 @@
     "node-env-file": "^0.1.8",
     "nodemailer": "^2.3.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-shell": "^0.5.1",
+    "run-sequence": "^1.1.5"
+  }
 }

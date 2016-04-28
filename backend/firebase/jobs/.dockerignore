@@ -1,0 +1,8 @@
+dbdata
+logs
+node_modules
+.editorconfig
+.gitignore
+.jsbeautifyrc
+.jshintrc
+tests
