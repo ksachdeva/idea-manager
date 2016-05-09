@@ -1,6 +1,7 @@
-import {Component} from 'angular2/core';
-import {Location, RouteConfig, RouterLink, Router} from 'angular2/router';
+import {Component, ViewContainerRef} from '@angular/core';
+import {RouteConfig, RouterLink, Router} from '@angular/router-deprecated';
 import {FirebaseAuth} from 'angularfire2';
+import {Modal} from 'angular2-modal';
 
 import {LoggedInRouterOutlet} from './LoggedInOutlet';
 import {LoginPage, SignupPage, ForgotPage} from './pages';
@@ -12,7 +13,7 @@ const template = require('./app.html');
 @Component({
   selector: 'idea-app',
   template: template,
-  providers: [Store],
+  providers: [Store, Modal],
   directives: [RouterLink, LoggedInRouterOutlet]
 })
 @RouteConfig([
@@ -31,8 +32,10 @@ export class App {
   constructor(
     public router: Router,
     private store: Store,
+    private modal: Modal,
+    private viewContainer: ViewContainerRef,
     private fbAuth: FirebaseAuth) {
-
+    modal.defaultViewContainer = viewContainer;
   }
 
   ngOnInit() {

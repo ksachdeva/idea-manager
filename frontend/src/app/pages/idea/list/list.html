@@ -51,7 +51,7 @@
   </div>
 </div>
 
-<div *ngFor="#idea of ideas | async">
+<div *ngFor="let idea of ideas | async">
   <idea (onAddComment)="newComment(idea)" [idea]="idea"></idea>
 </div>
 

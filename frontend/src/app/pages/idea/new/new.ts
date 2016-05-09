@@ -1,11 +1,11 @@
-import { Component, ViewChild } from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
+import { Component, ViewChild } from '@angular/core';
+import { Router, RouterLink } from '@angular/router-deprecated';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
 import {AngularFire, FirebaseAuth} from 'angularfire2';
 import * as _ from 'lodash';
+
 import {Idea} from './../../../models/models';
 import {RichTextComponent} from '../../../components/richtext';
-
 import {Store} from './../../../store';
 
 const template = require('./new.html');
@@ -34,7 +34,7 @@ export class NewIdeaPage {
   save() {
 
     this.idea.meta.author = {
-      email : this.store.user.email,
+      email: this.store.user.email,
       name: this.store.user.name,
       uid: this.store.user.uid
     };

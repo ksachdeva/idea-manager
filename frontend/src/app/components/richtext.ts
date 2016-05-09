@@ -1,5 +1,5 @@
-import {Component, Input, ElementRef} from 'angular2/core';
-import {CORE_DIRECTIVES} from 'angular2/common';
+import {Component, Input, ElementRef} from '@angular/core';
+import {CORE_DIRECTIVES} from '@angular/common';
 
 const MediumEditor: any = require('medium-editor');
 

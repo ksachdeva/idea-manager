@@ -1,5 +1,5 @@
-import {Directive, Attribute, ElementRef, DynamicComponentLoader} from 'angular2/core';
-import {Router, RouterOutlet, ComponentInstruction} from 'angular2/router';
+import {Directive, Attribute, ViewContainerRef, DynamicComponentLoader} from '@angular/core';
+import {Router, RouterOutlet, ComponentInstruction} from '@angular/router-deprecated';
 import {FirebaseAuth} from 'angularfire2';
 
 @Directive({
@@ -11,7 +11,7 @@ export class LoggedInRouterOutlet extends RouterOutlet {
 
   constructor(
     private fbAuth: FirebaseAuth,
-    _elementRef: ElementRef, _loader: DynamicComponentLoader,
+    _elementRef: ViewContainerRef, _loader: DynamicComponentLoader,
     _parentRouter: Router, @Attribute('name') nameAttr: string) {
 
     super(_elementRef, _loader, _parentRouter, nameAttr);

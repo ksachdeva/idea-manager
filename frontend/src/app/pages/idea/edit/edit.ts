@@ -1,10 +1,11 @@
 import {Observable} from 'rxjs';
-import { Component, Inject, ViewChild } from 'angular2/core';
-import { Router, RouterLink, RouteParams } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { Router, RouterLink, RouteParams } from '@angular/router-deprecated';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import {AngularFire, FirebaseRef} from 'angularfire2';
+
 import {Idea} from './../../../models/models';
 import {RichTextComponent} from '../../../components/richtext';
-import {AngularFire, FirebaseRef} from 'angularfire2';
 
 const template = require('./edit.html');
 
@@ -37,7 +38,7 @@ export class EditIdeaPage {
       .then((snapShot: FirebaseDataSnapshot) => {
         this.idea = snapShot.val();
         this.richText.editor.setContent(this.idea.data.summary, 0);
-    });
+      });
   }
 
   save() {

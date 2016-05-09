@@ -1,10 +1,11 @@
 import {Observable} from 'rxjs';
-import {Component, Input, Output, ElementRef, EventEmitter} from 'angular2/core';
-import {CORE_DIRECTIVES} from 'angular2/common';
-import { Router, RouterLink, RouteParams } from 'angular2/router';
+import {Component, Input, Output, ElementRef, EventEmitter} from '@angular/core';
+import {CORE_DIRECTIVES} from '@angular/common';
+import { Router, RouterLink, RouteParams } from '@angular/router-deprecated';
+import {AngularFire} from 'angularfire2';
+
 import {Idea, Comment} from './../models/models';
 import {UpVoteComponent} from './upvote';
-import {AngularFire} from 'angularfire2';
 import {Store} from './../store';
 
 @Component({
@@ -35,7 +36,7 @@ import {Store} from './../store';
         </a>
       </div>
 
-      <div *ngFor="#c of comments | async" class="panel panel-default" style="margin:10px;">
+      <div *ngFor="let c of comments | async" class="panel panel-default" style="margin:10px;">
         <div class="list-group">
           <div class="list-group-item">
             <div class="list-group-item-text" [innerHTML]="c.value"></div>

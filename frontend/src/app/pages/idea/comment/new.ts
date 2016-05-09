@@ -1,11 +1,11 @@
-import {Component, Input, ViewChild} from 'angular2/core';
-import {CORE_DIRECTIVES} from 'angular2/common';
+import {Component, Input, ViewChild} from '@angular/core';
+import {CORE_DIRECTIVES} from '@angular/common';
 import {Modal, ModalDialogInstance, ICustomModal, ICustomModalComponent} from 'angular2-modal';
+import {AngularFire} from 'angularfire2';
+
 import {Idea, Comment} from './../../../models/models';
 import {RichTextComponent} from '../../../components/richtext';
 import {ADDED_NEW_COMMENT} from '../../../const';
-import {AngularFire} from 'angularfire2';
-
 import {Store} from './../../../store';
 
 export interface INewCommentData {
@@ -69,9 +69,9 @@ export class NewCommentModal implements ICustomModalComponent {
     const commentObj = new Comment();
     commentObj.value = this.richText.value;
     commentObj.author = {
-       email : this.store.user.email,
-       name: this.store.user.name,
-       uid: this.store.user.uid
+      email: this.store.user.email,
+      name: this.store.user.name,
+      uid: this.store.user.uid
     };
     commentObj.idea = this.context.ideaObjectId;
 

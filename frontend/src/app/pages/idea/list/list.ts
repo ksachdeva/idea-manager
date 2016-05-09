@@ -1,24 +1,19 @@
 import {Observable} from 'rxjs';
-import { Component, provide, Injector } from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-
+import { Component, provide, ReflectiveInjector } from '@angular/core';
+import { Router, RouterLink } from '@angular/router-deprecated';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
 import {AngularFire} from 'angularfire2';
-
-import {ModalDialogInstance, ModalConfig, Modal,
-   ICustomModal, YesNoModalContent, YesNoModal} from 'angular2-modal';
+import {ModalDialogInstance, ModalConfig, Modal, ICustomModal} from 'angular2-modal';
 
 import {Idea, Comment} from './../../../models/models';
 import {INewCommentData, NewCommentModal} from '../comment/new';
 import {IdeaComponent} from '../../../components/idea';
-
 import {Store} from './../../../store';
 
 const template = require('./list.html');
 
 @Component({
   selector: 'idea-list',
-  providers: [Modal],
   directives: [RouterLink, CORE_DIRECTIVES, FORM_DIRECTIVES, IdeaComponent],
   template: template
 })
@@ -45,7 +40,7 @@ export class IdeaListPage {
     let dialog: Promise<ModalDialogInstance>;
     let component = NewCommentModal;
 
-    let bindings = Injector.resolve([
+    let bindings = ReflectiveInjector.resolve([
       provide(Store, {
         useValue: this.store
       }),

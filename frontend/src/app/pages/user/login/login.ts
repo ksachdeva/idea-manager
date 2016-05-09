@@ -1,8 +1,9 @@
-import { Component, Inject} from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
-import { CORE_DIRECTIVES, FORM_DIRECTIVES } from 'angular2/common';
-import { Http, Headers } from 'angular2/http';
+import { Component, Inject} from '@angular/core';
+import { Router, RouterLink } from '@angular/router-deprecated';
+import { CORE_DIRECTIVES, FORM_DIRECTIVES } from '@angular/common';
+import { Http, Headers } from '@angular/http';
 import { AngularFire, FirebaseRef, FirebaseAuthState, FirebaseAuth} from 'angularfire2';
+
 import {Store} from './../../../store';
 import {encodeEmail} from './../../../utils';
 
